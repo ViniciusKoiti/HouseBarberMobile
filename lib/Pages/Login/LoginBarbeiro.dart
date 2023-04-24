@@ -66,13 +66,15 @@ class LoginBarbeiro extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 textDirection: TextDirection.rtl,
                 children: [
-                  Container(
-                    width: screenWidth / 2.6,
-                    child: ButtonGoogle(),
+                  Expanded(
+                    child: Container(
+                      child: ButtonGoogle(),
+                    ),
                   ),
-                  Container(
-                    width: screenWidth / 2.6,
-                    child: ButtonFacebook(),
+                  Expanded(
+                    child: Container(
+                      child: ButtonFacebook(),
+                    ),
                   )
                 ],
               )
