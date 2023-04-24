@@ -1,9 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:housebarber/Components/ButtonConfirm.dart';
+import 'package:housebarber/Components/ButtonFacebook.dart';
+import 'package:housebarber/Components/ButtonGoogle.dart';
 import 'package:housebarber/Components/Container.dart';
+
+import '../../Components/TextFieldWithText.dart';
 
 class LoginBarbeiro extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double buttonWidth = screenWidth / 2.6;
+    var _loginWithGoogle;
     return Scaffold(
       appBar: AppBar(
         title: Text('Login Barbeiro'),
@@ -36,7 +44,38 @@ class LoginBarbeiro extends StatelessWidget {
         child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
           ContainerCentral(
             widgets: [
-              TextField(),
+              TextFieldWithText(title: "Login"),
+              TextFieldWithText(title: "Senha"),
+              ButtonConfirm(
+                title: "Fazer login",
+                onPressed: () => {print("Teste")},
+                color: Colors.black,
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              ButtonConfirm(
+                  title: "Registre-se",
+                  onPressed: () {},
+                  color: Colors.blue.shade700),
+              SizedBox(
+                height: 10,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                textDirection: TextDirection.rtl,
+                children: [
+                  Container(
+                    width: screenWidth / 2.6,
+                    child: ButtonGoogle(),
+                  ),
+                  Container(
+                    width: screenWidth / 2.6,
+                    child: ButtonFacebook(),
+                  )
+                ],
+              )
             ],
           )
         ]),

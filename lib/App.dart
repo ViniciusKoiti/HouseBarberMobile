@@ -9,7 +9,7 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: "Projeto Marcador de Ponto",
+        title: "House Barber",
         routes: {
           Rotas.home: (context) => HomePage(),
           Rotas.login: (context) => LoginBarbeiro()
