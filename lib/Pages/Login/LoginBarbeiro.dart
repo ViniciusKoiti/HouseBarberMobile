@@ -10,7 +10,7 @@ class LoginBarbeiro extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
-    double buttonWidth = screenWidth / 2.6;
+    double buttonWidth = screenWidth / 2;
     var _loginWithGoogle;
     return Scaffold(
       appBar: AppBar(
