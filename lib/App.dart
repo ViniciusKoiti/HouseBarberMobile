@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:housebarber/Pages/Login/LoginBarbeiro.dart';
+import 'package:housebarber/Pages/Login/LoginCliente.dart';
 import 'package:housebarber/routes/routes.dart';
 
 import 'Pages/Home/Home.dart';
@@ -12,7 +13,8 @@ class App extends StatelessWidget {
         title: "House Barber",
         routes: {
           Rotas.home: (context) => HomePage(),
-          Rotas.login: (context) => LoginBarbeiro()
+          Rotas.loginBarbeiro: (context) => LoginBarbeiro(),
+          Rotas.loginCliente: (context) => LoginCliente(),
         },
         home: HomePage());
   }

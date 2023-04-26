@@ -2,46 +2,89 @@ import 'package:flutter/material.dart';
 import 'package:housebarber/Pages/Login/LoginBarbeiro.dart';
 
 class HomePage extends StatelessWidget {
+  const HomePage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Home'),
-        actions: [
-          GestureDetector(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => LoginBarbeiro()),
-              );
-            },
-            child: Container(
-              padding: EdgeInsets.all(12),
-              decoration: BoxDecoration(
-                color: Colors.blue,
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: Text(
-                'Próxima Página',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 18,
+      body: Stack(
+        children: [
+          Positioned.fill(
+            left: 0,
+            right: MediaQuery.of(context).size.width / 2,
+            child: ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => LoginBarbeiro()),
+                );
+              },
+              style: ElevatedButton.styleFrom(
+                primary: Colors.blue[900], // cor de fundo azul escuro
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.only(
+                    topRight: Radius.circular(
+                        20), // borda arredondada no canto superior direito
+                  ),
                 ),
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.nature_people_rounded,
+                    size: 50,
+                    color: Colors.white,
+                  ),
+                  Text(
+                    'Barbeiro',
+                    style: TextStyle(
+                      fontSize: 20,
+                      color: Colors.white,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          Positioned.fill(
+            left: MediaQuery.of(context).size.width / 2,
+            right: 0,
+            child: ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => LoginBarbeiro()),
+                );
+              },
+              style: ElevatedButton.styleFrom(
+                primary: Colors.black,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(20),
+                  ),
+                ),
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.person,
+                    size: 50,
+                    color: Colors.white,
+                  ),
+                  Text(
+                    'Cliente',
+                    style: TextStyle(
+                      fontSize: 20,
+                      color: Colors.white,
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
         ],
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'Bem-vindo à minha aplicação!',
-            ),
-            SizedBox(height: 20),
-          ],
-        ),
       ),
     );
   }

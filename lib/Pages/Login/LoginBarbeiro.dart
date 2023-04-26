@@ -3,10 +3,12 @@ import 'package:housebarber/Components/ButtonConfirm.dart';
 import 'package:housebarber/Components/ButtonFacebook.dart';
 import 'package:housebarber/Components/ButtonGoogle.dart';
 import 'package:housebarber/Components/Container.dart';
+import 'package:housebarber/Components/DropdownButtonCity.dart';
 
 import '../../Components/TextFieldWithText.dart';
 
 class LoginBarbeiro extends StatelessWidget {
+  List<String> barbearias = ["barbearia 1", "barbearia 2"];
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
@@ -44,7 +46,8 @@ class LoginBarbeiro extends StatelessWidget {
         child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
           ContainerCentral(
             widgets: [
-              TextFieldWithText(title: "Login"),
+              TextFieldWithText(title: "CPF"),
+              ResponsiveDropDownButtonBarber(),
               TextFieldWithText(title: "Senha"),
               ButtonConfirm(
                 title: "Fazer login",

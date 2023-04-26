@@ -1,49 +1,59 @@
 import 'package:flutter/material.dart';
 
-class DropDownButtonCity extends StatefulWidget {
-  const DropDownButtonCity({super.key});
+class ResponsiveDropDownButtonBarber extends StatefulWidget {
+  const ResponsiveDropDownButtonBarber({Key? key}) : super(key: key);
 
   @override
-  State<DropDownButtonCity> createState() => _DropDownButtonCity();
+  State<ResponsiveDropDownButtonBarber> createState() =>
+      _ResponsiveDropDownButtonBarber();
 }
 
-class _DropDownButtonCity extends State<DropDownButtonCity> {
-  // Imagino que teriamos que ter uma lista de Cidades para trazer do back para o front
-  List<String> cities = ["Selecione uma cidade", "Paranavaí","São Paulo"];
-  String selectedCity = "Selecione uma cidade";
-
-  @override
-  void initState() {
-    super.initState();
-  }
+class _ResponsiveDropDownButtonBarber
+    extends State<ResponsiveDropDownButtonBarber> {
+  List<String> barbers = [
+    "Selecione uma barbearia",
+    "barbearia 1",
+    "barbearia 2"
+  ];
+  String barbersSelected = "Selecione uma barbearia";
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SizedBox(height: 5),
-        const Text("Cidade"),
+        const Text("Barbearia"),
         SizedBox(height: 5),
-        DropdownButtonFormField(
-          decoration: const InputDecoration(
-    border: OutlineInputBorder(),
-  ),
-            value: selectedCity,
-            isExpanded: true,
-            style: TextStyle(),
-        items: cities.map((city){
-        return DropdownMenuItem(
-        child: Text(city),
-        value: city,
-        );
-  }).toList(), 
-        onChanged: (city){
-          setState(() {
-          selectedCity = city!;
-          print("$city");
-          });
-        }),
+        DropdownButtonFormField<String>(
+          decoration: InputDecoration(
+            border: OutlineInputBorder(),
+            contentPadding: EdgeInsets.symmetric(
+              horizontal: screenWidth * 0.02,
+              vertical: screenHeight * 0.01,
+            ),
+          ),
+          value: barbersSelected,
+          isExpanded: true,
+          style: TextStyle(
+            fontSize: screenWidth * 0.02,
+          ),
+          items: barbers.map((barber) {
+            return DropdownMenuItem(
+              child: Text(barber),
+              value: barber,
+            );
+          }).toList(),
+          onChanged: (String? barber) {
+            setState(() {
+              barbersSelected = barber!;
+              print("$barber");
+            });
+          },
+        ),
         SizedBox(height: 10),
       ],
     );
