@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:housebarber/Pages/Login/LoginBarbeiro.dart';
+import 'package:housebarber/Pages/Login/LoginCliente.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -20,7 +21,6 @@ class HomePage extends StatelessWidget {
                 );
               },
               style: ElevatedButton.styleFrom(
-                primary: Colors.blue[900], // cor de fundo azul escuro
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.only(
                     topRight: Radius.circular(
@@ -54,7 +54,7 @@ class HomePage extends StatelessWidget {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => LoginBarbeiro()),
+                  MaterialPageRoute(builder: (context) => LoginCliente()),
                 );
               },
               style: ElevatedButton.styleFrom(

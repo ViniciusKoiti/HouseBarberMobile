@@ -4,11 +4,21 @@ import 'package:housebarber/Components/ButtonFacebook.dart';
 import 'package:housebarber/Components/ButtonGoogle.dart';
 import 'package:housebarber/Components/Container.dart';
 import 'package:housebarber/Components/DropdownButtonCity.dart';
+import 'package:housebarber/Pages/Cadastro/Cadastro.dart';
+import 'package:housebarber/Pages/Dashboards/ListaBarbeiros.dart';
+import 'package:housebarber/Pages/Dashboards/ListaCliente.dart';
+import 'package:housebarber/Pages/Home/Home.dart';
+import 'package:housebarber/Pages/Perfil/PerfilBarbeiro.dart';
 
 import '../../Components/TextFieldWithText.dart';
 
 class LoginBarbeiro extends StatelessWidget {
   List<String> barbearias = ["barbearia 1", "barbearia 2"];
+
+  // Criando os TextEditingController para os campos de texto
+  final cpfController = TextEditingController();
+  final senhaController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
@@ -22,7 +32,7 @@ class LoginBarbeiro extends StatelessWidget {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => LoginBarbeiro()),
+                MaterialPageRoute(builder: (context) => HomePage()),
               );
             },
             child: Container(
@@ -46,12 +56,17 @@ class LoginBarbeiro extends StatelessWidget {
         child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
           ContainerCentral(
             widgets: [
-              TextFieldWithText(title: "CPF"),
+              TextFieldWithText(title: "CPF", controller: cpfController),
               ResponsiveDropDownButtonBarber(),
-              TextFieldWithText(title: "Senha"),
+              TextFieldWithText(title: "Senha", controller: senhaController),
               ButtonConfirm(
                 title: "Fazer login",
-                onPressed: () => {print("Teste")},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => ListaBarbeiro()),
+                  );
+                },
                 color: Colors.black,
               ),
               SizedBox(
@@ -59,7 +74,12 @@ class LoginBarbeiro extends StatelessWidget {
               ),
               ButtonConfirm(
                   title: "Registre-se",
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => Cadastro()),
+                    );
+                  },
                   color: Colors.blue.shade700),
               SizedBox(
                 height: 10,
