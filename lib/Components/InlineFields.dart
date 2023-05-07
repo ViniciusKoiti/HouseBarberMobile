@@ -5,16 +5,13 @@ class ResponsiveInlineFields extends StatelessWidget {
   final Widget field2;
   final int flex1;
   final int flex2;
-  final String title1;
-  final String title2;
 
-  ResponsiveInlineFields({
+  const ResponsiveInlineFields({
+    super.key,
     required this.field1,
     required this.field2,
     this.flex1 = 1,
     this.flex2 = 1,
-    required this.title1,
-    required this.title2,
   });
 
   @override
@@ -27,26 +24,18 @@ class ResponsiveInlineFields extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                title1,
-                style: TextStyle(fontSize: 16),
-              ),
-              SizedBox(height: 10),
+              const SizedBox(height: 0),
               field1,
             ],
           ),
         ),
-        SizedBox(width: 10),
+        const SizedBox(width: 10),
         Flexible(
           flex: flex2,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                title2,
-                style: TextStyle(fontSize: 16),
-              ),
-              SizedBox(height: 10),
+              const SizedBox(height: 0),
               field2,
             ],
           ),

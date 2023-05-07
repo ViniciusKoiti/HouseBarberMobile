@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 
 class ButtonConfirm extends StatelessWidget {
   const ButtonConfirm(
-      {required this.title, required this.onPressed, required this.color});
+      {super.key,
+      required this.title,
+      required this.onPressed,
+      required this.color});
   final String title;
   final void Function() onPressed;
   final Color color;
@@ -11,20 +14,10 @@ class ButtonConfirm extends StatelessWidget {
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
 
-    return Container(
+    return SizedBox(
       width: double.infinity,
       child: ElevatedButton(
         onPressed: onPressed,
-        child: Text(
-          title,
-          style: TextStyle(
-            fontSize: screenWidth * 0.03,
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-          ),
-          textAlign: TextAlign.center,
-          maxLines: null,
-        ),
         style: ButtonStyle(
           backgroundColor: MaterialStateProperty.all<Color>(color),
           padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
@@ -43,6 +36,16 @@ class ButtonConfirm extends StatelessWidget {
               color: Colors.white,
             ),
           ),
+        ),
+        child: Text(
+          title,
+          style: TextStyle(
+            fontSize: screenWidth * 0.03,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
+          textAlign: TextAlign.center,
+          maxLines: null,
         ),
       ),
     );

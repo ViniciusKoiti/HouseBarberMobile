@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:housebarber/Components/logoAnimation.dart';
-import 'package:housebarber/Pages/Home/Home.dart';
+import 'package:housebarber/Pages/Login/LoginBarbeiro.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
@@ -23,7 +23,7 @@ class SplashScreen extends StatelessWidget {
     Navigator.of(context).pushReplacement(
       PageRouteBuilder(
         pageBuilder: (context, animation, secondaryAnimation) =>
-            const HomePage(),
+            LoginBarbeiro(),
         transitionsBuilder: (context, animation, secondaryAnimation, child) {
           return FadeTransition(
             opacity: animation,

@@ -5,30 +5,37 @@ class LogoWithCircle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        // Imagem estática
-        Image.asset('LogoHouse.png'),
+    return LayoutBuilder(
+      builder: (BuildContext context, BoxConstraints constraints) {
+        // Calcula o tamanho máximo do logo, como 80% da largura disponível
+        double logoSize = constraints.maxWidth * 0.8;
 
-        // Círculo
-        Positioned.fill(
-          child: AnimatedOpacity(
-            duration: const Duration(milliseconds: 500),
-            opacity: 0.0,
-            child: AnimatedContainer(
-              duration: const Duration(milliseconds: 500),
-              decoration: BoxDecoration(
-                color: Colors.black87,
-                shape: BoxShape.circle,
-                border: Border.all(
-                  color: Colors.black87,
-                  width: 10000.0,
+        return Stack(
+          children: [
+            // Imagem estática
+            Image.asset('LogoHouse.png', width: logoSize),
+
+            // Círculo
+            Positioned.fill(
+              child: AnimatedOpacity(
+                duration: const Duration(milliseconds: 500),
+                opacity: 0.0,
+                child: AnimatedContainer(
+                  duration: const Duration(milliseconds: 500),
+                  decoration: BoxDecoration(
+                    color: Colors.black87,
+                    shape: BoxShape.circle,
+                    border: Border.all(
+                      color: Colors.black87,
+                      width: logoSize / 2,
+                    ),
+                  ),
                 ),
               ),
             ),
-          ),
-        ),
-      ],
+          ],
+        );
+      },
     );
   }
 }

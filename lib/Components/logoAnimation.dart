@@ -20,6 +20,7 @@ class _LogoAnimationState extends State<LogoAnimation>
     super.initState();
 
     _animationController = AnimationController(
+      animationBehavior: AnimationBehavior.preserve,
       duration: const Duration(seconds: 3),
       vsync: this,
     );
@@ -70,27 +71,7 @@ class _LogoAnimationState extends State<LogoAnimation>
               ),
             ),
             // Ícone e Texto
-            Positioned.fill(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  Icon(
-                    Icons.sailing,
-                    size: 64,
-                    color: Colors.black,
-                  ),
-                  SizedBox(height: 16),
-                  Text(
-                    'HouseBarber',
-                    style: TextStyle(
-                      fontSize: 32,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black,
-                    ),
-                  ),
-                ],
-              ),
-            ),
+
             // Imagem
             Positioned.fill(
               child: Opacity(

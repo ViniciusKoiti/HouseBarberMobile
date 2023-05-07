@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 
 class TextFieldWithText extends StatelessWidget {
-  const TextFieldWithText({required this.title, required this.controller});
+  const TextFieldWithText(
+      {super.key,
+      required this.title,
+      required this.controller,
+      required this.icon});
 
   final String title;
   final TextEditingController controller;
+  final Icon icon;
 
   @override
   Widget build(BuildContext context) {
@@ -20,8 +25,11 @@ class TextFieldWithText extends StatelessWidget {
           textAlign: TextAlign.left,
           controller: controller,
           decoration: InputDecoration(
+            prefixIcon: icon,
             labelText: title,
-            border: OutlineInputBorder(),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
             floatingLabelBehavior: FloatingLabelBehavior.never,
           ),
         ),

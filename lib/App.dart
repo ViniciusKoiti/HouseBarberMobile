@@ -5,7 +5,6 @@ import 'package:housebarber/Pages/Dashboards/ListaBarbeiros.dart';
 import 'package:housebarber/Pages/Dashboards/ListaCliente.dart';
 import 'package:housebarber/Pages/Home/Logo.dart';
 import 'package:housebarber/Pages/Login/LoginBarbeiro.dart';
-import 'package:housebarber/Pages/Login/LoginCliente.dart';
 import 'package:housebarber/Pages/Perfil/HistoricoDeAvalia%C3%A7%C3%B5es.dart';
 import 'package:housebarber/Pages/Perfil/Notificacoes.dart';
 import 'package:housebarber/Pages/Perfil/PerfilBarbeiro.dart';
@@ -24,12 +23,11 @@ class App extends StatelessWidget {
         routes: {
           Rotas.home: (context) => const HomePage(),
           Rotas.loginBarbeiro: (context) => LoginBarbeiro(),
-          Rotas.loginCliente: (context) => LoginCliente(),
           Rotas.cadastro: (context) => const Cadastro(),
           Rotas.configuracoes: (context) => const Configs(),
-          Rotas.listaBarbeiro: (context) => const ListaBarbeiro(),
+          Rotas.listaBarbeiro: (context) => const Agenda(),
           Rotas.listaCliente: (context) => const TelaListaClientes(),
-          Rotas.perfilBarbeiro: (context) => BarberProfilePage(),
+          Rotas.perfilBarbeiro: (context) => const BarberProfilePage(),
           Rotas.historicoBarbeiro: (context) => HistoricoBarbeiros(),
           Rotas.notificacoes: (context) => const Notificacoes(),
         },

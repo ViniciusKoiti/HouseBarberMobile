@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'ButtonCancel.dart';
-import 'ButtonConfirm.dart';
+import 'Buttons/ButtonCancel.dart';
+import 'Buttons/ButtonConfirm.dart';
 
 class SideBox extends StatelessWidget {
   @override
