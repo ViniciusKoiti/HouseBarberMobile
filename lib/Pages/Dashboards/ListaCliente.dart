@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:housebarber/Components/bottomNavBar.dart';
+import 'package:housebarber/Components/appBar/bottomNavBar.dart';
 import 'package:housebarber/Models/Cliente.dart';
 import 'package:housebarber/Models/avaliacao.dart';
 import 'package:housebarber/Pages/Avaliacao/servicosRealizados.dart';
@@ -110,6 +110,6 @@ class _TelaListaClientesState extends State<TelaListaClientes> {
             ),
           ],
         ),
-        bottomNavigationBar: BottomNavBar());
+        bottomNavigationBar: const BottomNavBar());
   }
 }

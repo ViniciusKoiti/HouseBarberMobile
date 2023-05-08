@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:housebarber/Components/bottomNavBar.dart';
+import 'package:housebarber/Components/appBar/bottomNavBar.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 
 class Agendamento extends StatefulWidget {
@@ -16,7 +16,7 @@ class _AgendamentoState extends State<Agendamento> {
       body: SfCalendar(
         view: CalendarView.week,
       ),
-      bottomNavigationBar: BottomNavBar(),
+      bottomNavigationBar: const BottomNavBar(),
     );
   }
 }

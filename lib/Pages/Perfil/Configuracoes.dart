@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:housebarber/Components/bottomNavBar.dart';
+import 'package:housebarber/Components/appBar/bottomNavBar.dart';
 import 'package:housebarber/Components/configs.dart';
 
 class Configuracoes extends StatelessWidget {
@@ -11,14 +11,10 @@ class Configuracoes extends StatelessWidget {
       body: SingleChildScrollView(
         child: Center(
           child: Column(
-            children: const [
-              Configs(),
-              // Adicione outros componentes ou widgets aqui
-            ],
+            children: const [Configs(), BottomNavBar()],
           ),
         ),
       ),
-      bottomNavigationBar: BottomNavBar(),
     );
   }
 }

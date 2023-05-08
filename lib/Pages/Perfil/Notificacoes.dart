@@ -7,7 +7,7 @@ class Notificacoes extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Notificações'),
+        title: const Text('Notificações'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -19,8 +19,8 @@ class Notificacoes extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Padding(
-                padding: const EdgeInsets.all(16.0),
+              const Padding(
+                padding: EdgeInsets.all(16.0),
                 child: Text(
                   'Notificações',
                   style: TextStyle(
@@ -33,19 +33,21 @@ class Notificacoes extends StatelessWidget {
                 child: ListView(
                   children: [
                     _buildNotification(
-                      title: 'Novo agendamento',
-                      message:
-                          'Você tem um novo agendamento para amanhã às 10h.',
-                    ),
+                        title: 'Novo agendamento',
+                        message:
+                            'Você tem um novo agendamento para amanhã às 10h.',
+                        icon: Icons.schedule),
                     _buildNotification(
-                      title: 'Avaliação',
-                      message: 'Um cliente avaliou seu serviço com 5 estrelas.',
-                    ),
+                        title: 'Avaliação',
+                        message:
+                            'Um cliente avaliou seu serviço com 5 estrelas.',
+                        icon: Icons.star),
                     _buildNotification(
                       title: 'Atualização',
                       message:
                           'Há uma nova versão do aplicativo disponível para download.',
-                    ),
+                      icon: Icons.event,
+                    )
                   ],
                 ),
               ),
@@ -56,8 +58,13 @@ class Notificacoes extends StatelessWidget {
     );
   }
 
-  Widget _buildNotification({required String title, required String message}) {
+  Widget _buildNotification(
+      {required String title,
+      required String message,
+      required IconData icon}) {
     return ListTile(
+      tileColor: Colors.blue,
+      leading: Icon(icon),
       title: Text(title),
       subtitle: Text(message),
     );

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:housebarber/Components/barberReviewsPage.dart';
-import 'package:housebarber/Components/bottomNavBar.dart';
+import 'package:housebarber/Components/appBar/bottomNavBar.dart';
 
 class HistoricoBarbeiros extends StatelessWidget {
   HistoricoBarbeiros({super.key});
@@ -10,7 +10,7 @@ class HistoricoBarbeiros extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: BarberReviewsPage(),
-      bottomNavigationBar: BottomNavBar(),
+      bottomNavigationBar: const BottomNavBar(),
     );
   }
 }

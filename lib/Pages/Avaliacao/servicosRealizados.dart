@@ -15,6 +15,7 @@ class ServicosRealizadosPage extends StatelessWidget {
           return Card(
             margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             child: ListTile(
+              trailing: const Icon(Icons.check_circle_outline_rounded),
               title: Text('Serviço ${index + 1}'),
               subtitle: const Text(
                   'Barbeiro: João Silva\nData: 01/05/2022\nPreço: R\$ 50,00'),
