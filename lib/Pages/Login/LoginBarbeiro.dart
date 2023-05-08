@@ -4,18 +4,17 @@ import 'package:housebarber/Components/Buttons/ButtonFacebook.dart';
 import 'package:housebarber/Components/Buttons/ButtonGoogle.dart';
 import 'package:housebarber/Components/containerCentral.dart';
 import 'package:housebarber/Pages/Cadastro/Cadastro.dart';
-import 'package:housebarber/Pages/Dashboards/ListaBarbeiros.dart';
+import 'package:housebarber/Pages/Dashboards/Agendamento.dart';
 
 import '../../Components/fields/TextFieldWithText.dart';
 
 class LoginBarbeiro extends StatelessWidget {
+  LoginBarbeiro({super.key});
   List<String> barbearias = ["barbearia 1", "barbearia 2"];
 
   // Criando os TextEditingController para os campos de texto
   final cpfController = TextEditingController();
   final senhaController = TextEditingController();
-
-  LoginBarbeiro({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +39,8 @@ class LoginBarbeiro extends StatelessWidget {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const Agenda()),
+                    MaterialPageRoute(
+                        builder: (context) => const Agendamento()),
                   );
                 },
                 color: Colors.black,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:housebarber/Pages/Cadastro/Cadastro.dart';
 import 'package:housebarber/Pages/Dashboards/ListaCliente.dart';
 import 'package:housebarber/Pages/Perfil/HistoricoDeAvalia%C3%A7%C3%B5es.dart';
 import 'package:housebarber/Pages/Perfil/PerfilBarbeiro.dart';
@@ -13,8 +14,8 @@ class Configs extends StatelessWidget {
       color: Colors.grey[400],
       child: ListView(
         children: [
-          SizedBox(height: 10),
-          CircleAvatar(
+          const SizedBox(height: 10),
+          const CircleAvatar(
             radius: 50,
             backgroundColor: Colors.black87,
             child: Icon(
@@ -29,11 +30,12 @@ class Configs extends StatelessWidget {
               side: BorderSide(color: Colors.grey.shade400, width: 1),
             ),
             child: ListTile(
-              title: Text('Perfil'),
+              title: const Text('Perfil'),
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => BarberProfilePage()),
+                  MaterialPageRoute(
+                      builder: (context) => const BarberProfilePage()),
                 );
               },
             ),
@@ -45,8 +47,8 @@ class Configs extends StatelessWidget {
               side: BorderSide(color: Colors.grey.shade400, width: 1),
             ),
             child: ListTile(
-              contentPadding: EdgeInsets.symmetric(horizontal: 20.0),
-              title: Text('Historico Barbeiro'),
+              contentPadding: const EdgeInsets.symmetric(horizontal: 20.0),
+              title: const Text('Historico Barbeiro'),
               onTap: () {
                 Navigator.push(
                   context,
@@ -62,18 +64,32 @@ class Configs extends StatelessWidget {
               side: BorderSide(color: Colors.grey.shade400, width: 1),
             ),
             child: ListTile(
-              contentPadding: EdgeInsets.symmetric(horizontal: 20.0),
-              title: Text('Lista de Clientes'),
+              contentPadding: const EdgeInsets.symmetric(horizontal: 20.0),
+              title: const Text('Lista de Clientes'),
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => TelaListaClientes()),
+                  MaterialPageRoute(
+                      builder: (context) => const TelaListaClientes()),
                 );
               },
             ),
           ),
-          SizedBox(
-            height: 10,
+          Card(
+            elevation: 2,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10.0),
+              side: BorderSide(color: Colors.grey.shade400, width: 1),
+            ),
+            child: ListTile(
+              title: const Text('Cadastro de Cliente'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const Cadastro()),
+                );
+              },
+            ),
           ),
         ],
       ),

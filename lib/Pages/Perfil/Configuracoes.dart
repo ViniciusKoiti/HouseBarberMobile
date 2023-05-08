@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:housebarber/Components/bottomNavBar.dart';
 import 'package:housebarber/Components/configs.dart';
 
 class Configuracoes extends StatelessWidget {
@@ -7,20 +8,17 @@ class Configuracoes extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Configurações'),
-      ),
       body: SingleChildScrollView(
         child: Center(
           child: Column(
-            children: [
+            children: const [
               Configs(),
               // Adicione outros componentes ou widgets aqui
             ],
           ),
         ),
       ),
-      bottomNavigationBar: BottomAppBar(),
+      bottomNavigationBar: BottomNavBar(),
     );
   }
 }

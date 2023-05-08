@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:housebarber/Components/configs.dart';
 import 'package:housebarber/Pages/Cadastro/Cadastro.dart';
-import 'package:housebarber/Pages/Dashboards/ListaBarbeiros.dart';
+import 'package:housebarber/Pages/Dashboards/Agendamento.dart';
 import 'package:housebarber/Pages/Dashboards/ListaCliente.dart';
 import 'package:housebarber/Pages/Home/Logo.dart';
 import 'package:housebarber/Pages/Login/LoginBarbeiro.dart';
@@ -25,7 +25,7 @@ class App extends StatelessWidget {
           Rotas.loginBarbeiro: (context) => LoginBarbeiro(),
           Rotas.cadastro: (context) => const Cadastro(),
           Rotas.configuracoes: (context) => const Configs(),
-          Rotas.listaBarbeiro: (context) => const Agenda(),
+          Rotas.listaBarbeiro: (context) => const Agendamento(),
           Rotas.listaCliente: (context) => const TelaListaClientes(),
           Rotas.perfilBarbeiro: (context) => const BarberProfilePage(),
           Rotas.historicoBarbeiro: (context) => HistoricoBarbeiros(),

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:housebarber/routes/routes.dart';
 
-import '../Pages/Home/Home.dart';
-
 class BottomNavBar extends StatefulWidget {
+  const BottomNavBar({super.key});
+
   @override
   _BottomNavBarState createState() => _BottomNavBarState();
 }
@@ -12,11 +12,8 @@ class _BottomNavBarState extends State<BottomNavBar> {
   int _selectedIndex = 0;
   final List<String> _routes = [
     Rotas.home,
-    Rotas.cadastro,
+    Rotas.notificacoes,
     Rotas.configuracoes
-
-    // Rotas.search,
-    // Rotas.profile,
   ];
 
   void _onItemTapped(int index) {
@@ -35,8 +32,8 @@ class _BottomNavBarState extends State<BottomNavBar> {
           label: 'Home',
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.search),
-          label: 'Encontre um barbeiro',
+          icon: Icon(Icons.notifications),
+          label: 'Notificações',
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.settings),

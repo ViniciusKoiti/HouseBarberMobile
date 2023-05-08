@@ -4,7 +4,7 @@ import 'package:housebarber/Components/Buttons/ButtonConfirm.dart';
 import 'package:housebarber/Components/InlineFields.dart';
 import 'package:housebarber/Components/fields/TextFieldWithText.dart';
 import 'package:housebarber/Components/text/titleText.dart';
-import 'package:housebarber/Pages/Dashboards/ListaBarbeiros.dart';
+import 'package:housebarber/Pages/Dashboards/Agendamento.dart';
 import 'package:housebarber/Pages/Login/LoginBarbeiro.dart';
 
 class Cadastro extends StatefulWidget {
@@ -83,7 +83,7 @@ class _CadastroState extends State<Cadastro> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const Agenda()),
+                              builder: (context) => const Agendamento()),
                         );
                       },
                       color: Colors.blue),
