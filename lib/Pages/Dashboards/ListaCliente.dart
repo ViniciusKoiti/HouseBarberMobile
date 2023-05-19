@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:housebarber/Components/appBar/bottomNavBar.dart';
-import 'package:housebarber/Models/Cliente.dart';
-import 'package:housebarber/Models/avaliacao.dart';
+import 'package:housebarber/database/Models/cliente.dart';
+import 'package:housebarber/database/Models/avaliacao.dart';
 import 'package:housebarber/Pages/Avaliacao/servicosRealizados.dart';
+import 'package:housebarber/database/fake/clienteDao.dart';
+
+import '../../database/genericDao.dart';
 
 class TelaListaClientes extends StatefulWidget {
   const TelaListaClientes({Key? key}) : super(key: key);
@@ -12,40 +15,7 @@ class TelaListaClientes extends StatefulWidget {
 }
 
 class _TelaListaClientesState extends State<TelaListaClientes> {
-  List<Cliente> clientes = [
-    Cliente(
-      nome: "João",
-      telefone: "(11) 99999-9999",
-      avaliacoes: [
-        Avaliacao(
-          nota: 5,
-          comentario: "Ótimo atendimento!",
-          data: DateTime(2022, 1, 1),
-        ),
-        Avaliacao(
-          nota: 4,
-          comentario: "Preço um pouco alto",
-          data: DateTime(2022, 2, 1),
-        ),
-      ],
-    ),
-    Cliente(
-      nome: "Maria",
-      telefone: "(11) 88888-8888",
-      avaliacoes: [
-        Avaliacao(
-          nota: 3,
-          comentario: "Demorou um pouco",
-          data: DateTime(2022, 3, 1),
-        ),
-        Avaliacao(
-          nota: 5,
-          comentario: "Excelente profissional",
-          data: DateTime(2022, 4, 1),
-        ),
-      ],
-    ),
-  ];
+  
 
   List<Cliente> _clientesFiltrados = [];
 
@@ -54,13 +24,15 @@ class _TelaListaClientesState extends State<TelaListaClientes> {
   @override
   void initState() {
     super.initState();
-    _clientesFiltrados = clientes;
+    ClienteDao dao = ClienteDao();
     _controladorBusca.addListener(_atualizarBusca);
   }
 
   void _atualizarBusca() {
-    final String textoBusca = _controladorBusca.text.toLowerCase();
+    final String textoBusca = _controladorBusca.text.toLowerCase();[
     setState(() {
+      ClienteDao dao = ClienteDao();
+      List<Cliente> clientes = dao.listarTodos() as List<Cliente>;
       _clientesFiltrados = clientes
           .where((cliente) =>
               cliente.nome.toLowerCase().contains(textoBusca) ||

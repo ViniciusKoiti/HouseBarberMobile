@@ -1,5 +1,7 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
-import 'package:housebarber/Models/servico.dart';
+import 'package:housebarber/database/Models/servico.dart';
 
 class CadastroServicoScreen extends StatefulWidget {
   const CadastroServicoScreen({Key? key}) : super(key: key);
@@ -69,9 +71,10 @@ class _CadastroServicoScreenState extends State<CadastroServicoScreen> {
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
                     final novoServico = Servico(
+                      id: 1,
                       nome: _nomeController.text,
                       descricao: _descricaoController.text,
-                      preco: double.parse(_precoController.text),
+                      preco: double.parse(_precoController.text)
                     );
 
                     Navigator.pop(context);
