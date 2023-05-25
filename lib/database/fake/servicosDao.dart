@@ -1,31 +1,30 @@
 import 'dart:async';
 
-import 'package:housebarber/Components/genericDao.dart';
+import 'package:housebarber/database/genericDao.dart';
 
 import '../Models/servico.dart';
 
 class ServicoDao extends GenericDao<Servico> {
-   List<Servico> listaServicos = [
-    Servico(
+  List<Servico> listaServicos = [
+    const Servico(
       id: 1,
       nome: 'Serviço 1',
       descricao: 'Descrição do serviço 1',
       preco: 10.0,
     ),
-    Servico(
+    const Servico(
       id: 2,
       nome: 'Serviço 2',
       descricao: 'Descrição do serviço 2',
       preco: 20.0,
     ),
-    Servico(
+    const Servico(
       id: 3,
       nome: 'Serviço 3',
       descricao: 'Descrição do serviço 3',
       preco: 30.0,
     ),
   ];
-  
 
   @override
   bool excluir(dynamic id) {
@@ -47,10 +46,10 @@ class ServicoDao extends GenericDao<Servico> {
   Servico salvar(Servico servico) {
     if (servico.id == null) {
       servico = Servico(
-          id: listaServicos.length,
-          nome: servico.nome,
-          descricao: servico.descricao,
-          preco: servico.preco,
+        id: listaServicos.length,
+        nome: servico.nome,
+        descricao: servico.descricao,
+        preco: servico.preco,
       );
       listaServicos.add(servico);
     } else {

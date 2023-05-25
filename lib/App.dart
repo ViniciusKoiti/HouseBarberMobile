@@ -3,7 +3,6 @@ import 'package:housebarber/Components/configs.dart';
 import 'package:housebarber/Pages/Cadastro/Cadastro.dart';
 import 'package:housebarber/Pages/Dashboards/Agendamento.dart';
 import 'package:housebarber/Pages/Dashboards/ListaCliente.dart';
-import 'package:housebarber/Pages/Home/Logo.dart';
 import 'package:housebarber/Pages/Login/LoginBarbeiro.dart';
 import 'package:housebarber/Pages/Perfil/HistoricoDeAvalia%C3%A7%C3%B5es.dart';
 import 'package:housebarber/Pages/Perfil/Notificacoes.dart';
@@ -31,6 +30,6 @@ class App extends StatelessWidget {
           Rotas.historicoBarbeiro: (context) => HistoricoBarbeiros(),
           Rotas.notificacoes: (context) => const Notificacoes(),
         },
-        home: const SplashScreen());
+        home: const TelaListaClientes());
   }
 }

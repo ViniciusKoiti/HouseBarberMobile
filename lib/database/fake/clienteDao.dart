@@ -1,9 +1,8 @@
-import 'package:housebarber/Components/genericDao.dart';
 import 'package:housebarber/database/Models/cliente.dart';
 import 'package:housebarber/database/Models/avaliacao.dart';
+import 'package:housebarber/database/genericDao.dart';
 
-class ClienteDao extends GenericDao<Cliente>{
-
+class ClienteDao extends GenericDao<Cliente> {
   List<Cliente> listaCliente = [
     Cliente(
       nome: "João",
@@ -45,13 +44,13 @@ class ClienteDao extends GenericDao<Cliente>{
 
   @override
   bool excluir(dynamic id) {
-    listaCliente.remove(listaCliente[id-1]);
+    listaCliente.remove(listaCliente[id - 1]);
     return true;
   }
 
   @override
   Future<Cliente> getById(dynamic id) {
-    Cliente cliente = listaCliente[id-1];
+    Cliente cliente = listaCliente[id - 1];
     return Future.value(cliente);
   }
 
@@ -63,7 +62,8 @@ class ClienteDao extends GenericDao<Cliente>{
   @override
   Cliente salvar(Cliente cliente) {
     if (cliente.id == null) {
-      cliente = Cliente(avaliacoes: [], id: null, imgUrl: '', nome: '', telefone: '');
+      cliente =
+          Cliente(avaliacoes: [], id: null, imgUrl: '', nome: '', telefone: '');
       listaCliente.add(cliente);
     } else {
       int i = (cliente.id as int) - 1;
@@ -71,5 +71,4 @@ class ClienteDao extends GenericDao<Cliente>{
     }
     return cliente;
   }
-
 }

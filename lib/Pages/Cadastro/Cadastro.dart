@@ -7,11 +7,13 @@ import 'package:housebarber/Components/text/titleText.dart';
 import 'package:housebarber/Pages/Dashboards/Agendamento.dart';
 import 'package:housebarber/Pages/Login/LoginBarbeiro.dart';
 
+import '../../database/Models/cliente.dart';
+
 class Cadastro extends StatefulWidget {
   const Cadastro({super.key});
 
   @override
-  _CadastroState createState() => _CadastroState();
+  State<Cadastro> createState() => _CadastroState();
 }
 
 class _CadastroState extends State<Cadastro> {
@@ -22,15 +24,18 @@ class _CadastroState extends State<Cadastro> {
   final senhaController = TextEditingController();
   final confirmaSenhaController = TextEditingController();
   final emailController = TextEditingController();
+  dynamic id;
 
   @override
   Widget build(BuildContext context) {
+    receberClienteParaAlteracao(context);
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
             Center(
+                child: Form(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -119,10 +124,35 @@ class _CadastroState extends State<Cadastro> {
                   )
                 ],
               ),
-            )
+            ))
           ],
         ),
       ),
     );
+  }
+
+  void receberClienteParaAlteracao(BuildContext context) {
+    var parametro = ModalRoute.of(context);
+    if (parametro != null && parametro.settings.arguments != null) {
+      Cliente cliente = parametro.settings.arguments as Cliente;
+      id = cliente.id;
+      preencherCampos(cliente);
+    }
+  }
+
+  Cliente preencherDTO() {
+    return Cliente(
+        id: id,
+        nome: loginController.text,
+        telefone: cepController.text,
+        avaliacoes: [],
+        imgUrl: '');
+  }
+
+  void preencherCampos(Cliente cliente) {
+    loginController.text = cliente.nome;
+    cepController.text = cliente.telefone;
+    cepController.text = cliente.telefone;
+    senhaController.text = cliente.imgUrl;
   }
 }

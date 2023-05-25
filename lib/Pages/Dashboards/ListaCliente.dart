@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:housebarber/Components/appBar/bottomNavBar.dart';
-import 'package:housebarber/database/Models/cliente.dart';
-import 'package:housebarber/database/Models/avaliacao.dart';
 import 'package:housebarber/Pages/Avaliacao/servicosRealizados.dart';
+import 'package:housebarber/database/Models/cliente.dart';
 import 'package:housebarber/database/fake/clienteDao.dart';
-
-import '../../database/genericDao.dart';
+import 'package:housebarber/routes/routes.dart';
 
 class TelaListaClientes extends StatefulWidget {
   const TelaListaClientes({Key? key}) : super(key: key);
@@ -15,24 +13,26 @@ class TelaListaClientes extends StatefulWidget {
 }
 
 class _TelaListaClientesState extends State<TelaListaClientes> {
-  
-
   List<Cliente> _clientesFiltrados = [];
+  ClienteDao clienteDao = ClienteDao();
 
   final TextEditingController _controladorBusca = TextEditingController();
 
   @override
   void initState() {
     super.initState();
-    ClienteDao dao = ClienteDao();
     _controladorBusca.addListener(_atualizarBusca);
+    _atualizarBusca();
   }
 
   void _atualizarBusca() {
-    final String textoBusca = _controladorBusca.text.toLowerCase();[
+    final String textoBusca = _controladorBusca.text.toLowerCase();
+    _buscarClientes(textoBusca);
+  }
+
+  Future<void> _buscarClientes(String textoBusca) async {
+    List<Cliente> clientes = await clienteDao.listarTodos();
     setState(() {
-      ClienteDao dao = ClienteDao();
-      List<Cliente> clientes = dao.listarTodos() as List<Cliente>;
       _clientesFiltrados = clientes
           .where((cliente) =>
               cliente.nome.toLowerCase().contains(textoBusca) ||
@@ -60,8 +60,31 @@ class _TelaListaClientesState extends State<TelaListaClientes> {
                 itemCount: _clientesFiltrados.length,
                 itemBuilder: (BuildContext context, int index) {
                   return ListTile(
-                    leading: const Icon(Icons.person),
+                    leading: IconButton(
+                        onPressed: () {
+                          Navigator.pushNamed(context, Rotas.perfilBarbeiro);
+                        },
+                        icon: const CircleAvatar(child: Icon(Icons.person_2))),
                     title: Text(_clientesFiltrados[index].nome),
+                    trailing: SizedBox(
+                      width: 100,
+                      child: Row(
+                        children: [
+                          IconButton(
+                            onPressed: () {},
+                            icon: const Icon(Icons.delete),
+                            color: Colors.red,
+                          ),
+                          IconButton(
+                            onPressed: () {
+                              Navigator.pushNamed(context, Rotas.cadastro);
+                            },
+                            icon: const Icon(Icons.edit),
+                            color: Colors.blue[200],
+                          )
+                        ],
+                      ),
+                    ),
                     subtitle: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
