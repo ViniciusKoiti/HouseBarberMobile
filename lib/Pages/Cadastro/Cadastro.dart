@@ -5,7 +5,8 @@ import 'package:housebarber/Components/InlineFields.dart';
 import 'package:housebarber/Components/fields/TextFieldWithText.dart';
 import 'package:housebarber/Components/text/titleText.dart';
 import 'package:housebarber/Pages/Dashboards/Agendamento.dart';
-import 'package:housebarber/Pages/Login/LoginBarbeiro.dart';
+import 'package:housebarber/Pages/Dashboards/ListaCliente.dart';
+import 'package:housebarber/database/fake/clienteDao.dart';
 
 import '../../database/Models/cliente.dart';
 
@@ -24,6 +25,8 @@ class _CadastroState extends State<Cadastro> {
   final senhaController = TextEditingController();
   final confirmaSenhaController = TextEditingController();
   final emailController = TextEditingController();
+  final clienteDao = ClienteDao();
+  final formKey = GlobalKey<FormState>();
   dynamic id;
 
   @override
@@ -55,6 +58,10 @@ class _CadastroState extends State<Cadastro> {
                     width: MediaQuery.of(context).size.width *
                         0.8, // 80% da largura da tela
                   ),
+                  TextFieldWithText(
+                      title: "Nome",
+                      controller: loginController,
+                      icon: const Icon(Icons.edit_document)),
                   TextFieldWithText(
                       title: "CPF ou CNPJ",
                       controller: cpfCnpjController,
@@ -108,11 +115,17 @@ class _CadastroState extends State<Cadastro> {
                           style: const TextStyle(color: Colors.blue),
                           recognizer: TapGestureRecognizer()
                             ..onTap = () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => LoginBarbeiro()),
-                              );
+                              var formState = formKey.currentState;
+                              if (formState != null && formState.validate()) {
+                                var cliente = preencherDTO();
+                                clienteDao.salvar(cliente);
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const TelaListaClientes()),
+                                );
+                              }
                             },
                         ),
                         const TextSpan(
@@ -146,12 +159,15 @@ class _CadastroState extends State<Cadastro> {
         nome: loginController.text,
         telefone: cepController.text,
         avaliacoes: [],
-        imgUrl: '');
+        imgUrl: '',
+        cep: '',
+        cpfCpnj: '');
   }
 
   void preencherCampos(Cliente cliente) {
     loginController.text = cliente.nome;
-    cepController.text = cliente.telefone;
+    cepController.text = cliente.cep;
+    cpfCnpjController.text = cliente.cpfCpnj;
     cepController.text = cliente.telefone;
     senhaController.text = cliente.imgUrl;
   }

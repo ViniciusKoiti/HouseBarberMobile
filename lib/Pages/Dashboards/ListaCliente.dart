@@ -77,7 +77,8 @@ class _TelaListaClientesState extends State<TelaListaClientes> {
                           ),
                           IconButton(
                             onPressed: () {
-                              Navigator.pushNamed(context, Rotas.cadastro);
+                              Navigator.pushNamed(context, Rotas.cadastro,
+                                  arguments: _clientesFiltrados[index]);
                             },
                             icon: const Icon(Icons.edit),
                             color: Colors.blue[200],

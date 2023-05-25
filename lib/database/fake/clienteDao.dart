@@ -21,6 +21,8 @@ class ClienteDao extends GenericDao<Cliente> {
       ],
       imgUrl: '',
       id: null,
+      cep: '',
+      cpfCpnj: '',
     ),
     Cliente(
       nome: "Maria",
@@ -39,6 +41,8 @@ class ClienteDao extends GenericDao<Cliente> {
       ],
       id: 1,
       imgUrl: '',
+      cep: '',
+      cpfCpnj: '',
     ),
   ];
 
@@ -62,8 +66,14 @@ class ClienteDao extends GenericDao<Cliente> {
   @override
   Cliente salvar(Cliente cliente) {
     if (cliente.id == null) {
-      cliente =
-          Cliente(avaliacoes: [], id: null, imgUrl: '', nome: '', telefone: '');
+      cliente = Cliente(
+          avaliacoes: [],
+          id: null,
+          imgUrl: '',
+          nome: '',
+          telefone: '',
+          cep: '',
+          cpfCpnj: '');
       listaCliente.add(cliente);
     } else {
       int i = (cliente.id as int) - 1;
