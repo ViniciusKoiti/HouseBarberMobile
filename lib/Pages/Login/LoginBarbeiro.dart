@@ -48,15 +48,14 @@ class LoginBarbeiro extends StatelessWidget {
               const SizedBox(
                 height: 10,
               ),
-              ButtonConfirm(
-                  title: "Registre-se",
+              ElevatedButton(
                   onPressed: () {
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => const Cadastro()),
                     );
                   },
-                  color: Colors.blue.shade700),
+                  child: null,),
               const SizedBox(
                 height: 10,
               ),

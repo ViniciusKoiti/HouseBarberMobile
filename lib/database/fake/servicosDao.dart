@@ -27,9 +27,9 @@ class ServicoDao extends GenericDao<Servico> {
   ];
 
   @override
-  bool excluir(dynamic id) {
+  Future<bool> excluir(dynamic id) {
     listaServicos.remove(listaServicos[id - 1]);
-    return true;
+    return Future.value( true);
   }
 
   @override
@@ -43,7 +43,7 @@ class ServicoDao extends GenericDao<Servico> {
   }
 
   @override
-  Servico salvar(Servico servico) {
+  Future<Servico> salvar(Servico servico) {
     if (servico.id == null) {
       servico = Servico(
         id: listaServicos.length,
@@ -56,6 +56,6 @@ class ServicoDao extends GenericDao<Servico> {
       int i = (servico.id as int) - 1;
       listaServicos[i] = servico;
     }
-    return servico;
+    return Future.value(servico);
   }
 }

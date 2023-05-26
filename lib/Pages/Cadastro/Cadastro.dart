@@ -7,6 +7,7 @@ import 'package:housebarber/Components/text/titleText.dart';
 import 'package:housebarber/Pages/Dashboards/Agendamento.dart';
 import 'package:housebarber/Pages/Dashboards/ListaCliente.dart';
 import 'package:housebarber/database/fake/clienteDao.dart';
+import 'package:housebarber/database/sqlite/clienteDaoSQLLite.dart';
 
 import '../../database/Models/cliente.dart';
 
@@ -25,7 +26,7 @@ class _CadastroState extends State<Cadastro> {
   final senhaController = TextEditingController();
   final confirmaSenhaController = TextEditingController();
   final emailController = TextEditingController();
-  final clienteDao = ClienteDao();
+  final clienteDao = ClienteDaoSQLite();
   final formKey = GlobalKey<FormState>();
   dynamic id;
 

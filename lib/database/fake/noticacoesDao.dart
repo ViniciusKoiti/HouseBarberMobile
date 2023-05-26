@@ -33,9 +33,9 @@ class NotificacoesDao extends GenericDao<Notificacao> {
   ];
 
   @override
-  bool excluir(dynamic id) {
+  Future<bool> excluir(dynamic id) {
     notificacoes.remove(notificacoes[id - 1]);
-    return true;
+    return Future.value(true);
   }
 
   @override
@@ -49,7 +49,7 @@ class NotificacoesDao extends GenericDao<Notificacao> {
   }
 
   @override
-  Notificacao salvar(Notificacao notificacao) {
+  Future<Notificacao> salvar(Notificacao notificacao) {
     if (notificacao.id == null) {
       notificacao = Notificacao(
           id: notificacoes.length,
@@ -61,6 +61,6 @@ class NotificacoesDao extends GenericDao<Notificacao> {
       int i = (notificacao.id as int) - 1;
       notificacoes[i] = notificacao;
     }
-    return notificacao;
+    return Future.value(notificacao);
   }
 }

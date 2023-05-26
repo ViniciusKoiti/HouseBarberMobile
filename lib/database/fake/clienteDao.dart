@@ -47,9 +47,9 @@ class ClienteDao extends GenericDao<Cliente> {
   ];
 
   @override
-  bool excluir(dynamic id) {
+  Future<bool> excluir(dynamic id) {
     listaCliente.remove(listaCliente[id - 1]);
-    return true;
+    return Future.value(true);
   }
 
   @override
@@ -64,7 +64,7 @@ class ClienteDao extends GenericDao<Cliente> {
   }
 
   @override
-  Cliente salvar(Cliente cliente) {
+  Future<Cliente> salvar(Cliente cliente) {
     if (cliente.id == null) {
       cliente = Cliente(
           avaliacoes: [],
@@ -79,6 +79,6 @@ class ClienteDao extends GenericDao<Cliente> {
       int i = (cliente.id as int) - 1;
       listaCliente[i] = cliente;
     }
-    return cliente;
+    return Future.value(cliente);
   }
 }
