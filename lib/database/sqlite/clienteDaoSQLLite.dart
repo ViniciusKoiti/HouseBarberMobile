@@ -24,7 +24,7 @@ class ClienteDaoSQLite implements GenericDao<Cliente>{
   @override
   Future<List<Cliente>> listarTodos() async {
     Database db = await Conexao.criar();
-    List<Cliente> lista = (await db.query('cliente')).map<Cliente>(converterCliente).toList();
+    List<Cliente> lista = (await db.query('person')).map<Cliente>(converterCliente).toList();
     return lista;
   }
 
@@ -33,7 +33,7 @@ class ClienteDaoSQLite implements GenericDao<Cliente>{
     Database db = await  Conexao.criar();
     String sql;
     if(cliente.id == null){
-      sql = 'INSERT INTO cliente(nome, telefone,email,imgUrl) VALUES (?,?,?,?)';
+      sql = 'INSERT INTO person(nome, telefone,email,imgUrl) VALUES (?,?,?,?)';
       int id = await db.rawInsert(sql,[cliente.nome, cliente.telefone, cliente.cep, cliente.imgUrl]);
       cliente = Cliente(
         id: id,
@@ -41,7 +41,7 @@ class ClienteDaoSQLite implements GenericDao<Cliente>{
         telefone: cliente.telefone, avaliacoes: [], cpfCpnj: '', imgUrl: '', cep: '899999', 
         );
     }else{
-      sql = 'UPDATE contato SET nome = ?, telefone =?, email = ?, url_avatar= ? WHERE id = ?';
+      sql = 'UPDATE person SET nome = ?, telefone =?, email = ?, url_avatar= ? WHERE id = ?';
       db.rawUpdate(sql,[cliente.nome, cliente.telefone, cliente.cep, cliente.imgUrl, cliente.id]);
     }
     return cliente;

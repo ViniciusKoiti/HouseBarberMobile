@@ -15,8 +15,8 @@ class Conexao {
       _database = await openDatabase(
         path, // informando o caminho
         version: 1, // versão
-        onCreate: (db, v) {
-          db.execute("CREATE TABLE person(id INTEGER PRIMARY KEY AUTOINCREMENT,name VARCHAR(100),telefone VARCHAR(100),imgUrl VARCHAR(100),cpfCpnj VARCHAR(100),cep VARCHAR(100)");
+        onCreate: (db, v) async {
+          await db.execute("CREATE TABLE person(id INTEGER PRIMARY KEY,name VARCHAR(100),telefone VARCHAR(100),imgUrl VARCHAR(100),cpfCpnj VARCHAR(100),cep VARCHAR(100))");
           insercoes.forEach(db.execute);
         },
       );

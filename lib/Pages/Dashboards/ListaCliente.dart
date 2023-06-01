@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:housebarber/Components/appBar/bottomNavBar.dart';
 import 'package:housebarber/Pages/Avaliacao/servicosRealizados.dart';
 import 'package:housebarber/database/Models/cliente.dart';
-import 'package:housebarber/database/fake/clienteDao.dart';
+import 'package:housebarber/database/sqlite/clienteDaoSQLLite.dart';
 import 'package:housebarber/routes/routes.dart';
 
 class TelaListaClientes extends StatefulWidget {
@@ -14,7 +14,7 @@ class TelaListaClientes extends StatefulWidget {
 
 class _TelaListaClientesState extends State<TelaListaClientes> {
   List<Cliente> _clientesFiltrados = [];
-  ClienteDao clienteDao = ClienteDao();
+  ClienteDaoSQLite clienteDao = ClienteDaoSQLite();
 
   final TextEditingController _controladorBusca = TextEditingController();
 
