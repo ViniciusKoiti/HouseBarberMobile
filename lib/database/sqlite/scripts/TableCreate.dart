@@ -1,36 +1,25 @@
-enum TableCreate { cliente, servico, cliente_servico }
+enum TableCreate { cliente, servico }
 
 final Map<TableCreate, String> tableSqlMap = {
-  TableCreate.cliente: """
-      CREATE TABLE cliente(id INTEGER PRIMARY KEY AUTOINCREMENT,
-      name VARCHAR(100),
-      telefone VARCHAR(100),
-      imgUrl VARCHAR(100),
-      cpfCpnj VARCHAR(100),
-      cep VARCHAR(100)",
-      """,
-  TableCreate.servico: """
-    CREATE TABLE servico (
-    id INTEGER PRIMARY KEY,
-    nome TEXT,
-    descricao TEXT,
-    preco REAL
-  );  
+   TableCreate.cliente: """
+      CREATE TABLE cliente(
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        name VARCHAR(100),
+        telefone VARCHAR(100),
+        imgUrl VARCHAR(100),
+        cpfCpnj VARCHAR(100),
+        cep VARCHAR(100)
+      );
   """,
-  TableCreate.cliente_servico: """
-    CREATE TABLE cliente_servico (
-    cliente_id INTEGER,
-    servico_id INTEGER,
-    PRIMARY KEY(cliente_id, servico_id),
-    FOREIGN KEY(cliente_id) REFERENCES cliente(id),
-    FOREIGN KEY(servico_id) REFERENCES servico(id)
-  );
-  """
+  TableCreate.servico: """
+    CREATE TABLE servico(
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      nome VARCHAR(100),
+      descricao TEXT,
+      preco REAL,
+      cliente_id INTEGER,
+      FOREIGN KEY(cliente_id) REFERENCES cliente(id)
+    );
+  """,
 };
 
-extension TableSqlMapper on TableCreate {
-  static final table = {
-    TableCreate.cliente:
-        "CREATE TABLE cliente(id INTEGER PRIMARY KEY AUTOINCREMENT,name VARCHAR(100),telefone VARCHAR(100),imgUrl VARCHAR(100),cpfCpnj VARCHAR(100),cep VARCHAR(100)",
-  };
-}

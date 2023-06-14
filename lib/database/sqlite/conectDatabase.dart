@@ -1,4 +1,5 @@
-import 'package:housebarber/database/sqlite/scripts/enumDatabase.dart';
+import 'package:housebarber/database/sqlite/scripts/Insert.dart';
+import 'package:housebarber/database/sqlite/scripts/TableCreate.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -14,7 +15,7 @@ class Conexao {
         version: 1, // versão
         onCreate: (db, v) async {
           await createTables(db);
-          insercoes.forEach(db.execute);
+          await insertCommand(db);
         },
       );
       _fechado = false;
@@ -25,6 +26,15 @@ class Conexao {
   static Future<void> createTables(Database db) async {
     for (var entry in tableSqlMap.entries) {
       await db.execute(entry.value);
+    }
+  }
+
+  static Future<void> insertCommand(Database db) async {
+    for (String servico in servicoInserts) {
+      await db.execute(servico);
+    }
+    for (String cliente in clienteInserts) {
+      await db.execute(cliente);
     }
   }
 }

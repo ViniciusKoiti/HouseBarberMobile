@@ -28,7 +28,7 @@ class ClienteDaoSQLite implements GenericDao<Cliente> {
   Future<List<Cliente>> listarTodos() async {
     Database db = await Conexao.criar();
     List<Cliente> lista =
-        (await db.query('person')).map<Cliente>(converterCliente).toList();
+        (await db.query('cliente')).map<Cliente>(converterCliente).toList();
     return lista;
   }
 
@@ -37,7 +37,7 @@ class ClienteDaoSQLite implements GenericDao<Cliente> {
     Database db = await Conexao.criar();
     String sql;
     if (cliente.id == null) {
-      sql = 'INSERT INTO person(nome, telefone,email,imgUrl) VALUES (?,?,?,?)';
+      sql = 'INSERT INTO cliente(nome, telefone,email,imgUrl) VALUES (?,?,?,?)';
       int id = await db.rawInsert(
           sql, [cliente.nome, cliente.telefone, cliente.cep, cliente.imgUrl]);
       cliente = Cliente(
@@ -45,13 +45,14 @@ class ClienteDaoSQLite implements GenericDao<Cliente> {
         nome: cliente.nome,
         telefone: cliente.telefone,
         avaliacoes: [],
+        servicos: [],
         cpfCpnj: '',
         imgUrl: cliente.imgUrl,
         cep: cliente.cep,
       );
     } else {
       sql =
-          'UPDATE person SET nome = ?, telefone =?, email = ?, url_avatar= ? WHERE id = ?';
+          'UPDATE cliente SET nome = ?, telefone =?, email = ?, url_avatar= ? WHERE id = ?';
       db.rawUpdate(sql, [
         cliente.nome,
         cliente.telefone,
@@ -63,7 +64,7 @@ class ClienteDaoSQLite implements GenericDao<Cliente> {
     return cliente;
   }
 
-  Cliente converterCliente(Map<String, dynamic> resultado) {
+  Cliente converterCliente(Map<dynamic, dynamic> resultado) {
     return Cliente(
       id: resultado['id'],
       nome: resultado['nome'],
@@ -71,7 +72,8 @@ class ClienteDaoSQLite implements GenericDao<Cliente> {
       imgUrl: resultado['imgUrl'],
       cpfCpnj: resultado['cpfCpnj'],
       cep: resultado['cep'],
-      avaliacoes: [], // Provavelmente, você vai querer converter as avaliações do cliente também
+      servicos: [], // Você pode adicionar a lógica para converter os servicos do cliente também
+      avaliacoes: [], // Você pode adicionar a lógica para converter as avaliacoes do cliente também
     );
   }
 }

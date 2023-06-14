@@ -10,19 +10,19 @@ class ServicoDao extends GenericDao<Servico> {
       id: 1,
       nome: 'Serviço 1',
       descricao: 'Descrição do serviço 1',
-      preco: 10.0,
+      preco: 10.0, cliente: null,
     ),
     const Servico(
       id: 2,
       nome: 'Serviço 2',
       descricao: 'Descrição do serviço 2',
-      preco: 20.0,
+      preco: 20.0, cliente: null,
     ),
     const Servico(
       id: 3,
       nome: 'Serviço 3',
       descricao: 'Descrição do serviço 3',
-      preco: 30.0,
+      preco: 30.0, cliente: null,
     ),
   ];
 

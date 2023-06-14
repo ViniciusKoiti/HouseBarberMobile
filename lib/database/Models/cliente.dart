@@ -1,4 +1,5 @@
 import 'package:housebarber/database/Models/avaliacao.dart';
+import 'package:housebarber/database/Models/servico.dart';
 
 class Cliente {
   final dynamic id;
@@ -7,6 +8,7 @@ class Cliente {
   final String imgUrl;
   final String cpfCpnj;
   final String cep;
+  List<Servico> servicos = [];
   List<Avaliacao> avaliacoes = [];
 
   Cliente(
@@ -16,5 +18,5 @@ class Cliente {
       required this.nome,
       required this.telefone,
       required this.imgUrl,
-      required this.avaliacoes});
+      required this.avaliacoes, required List servicos});
 }
