@@ -6,10 +6,10 @@ import 'package:housebarber/Components/fields/TextFieldWithText.dart';
 import 'package:housebarber/Components/text/titleText.dart';
 import 'package:housebarber/Pages/Dashboards/Agendamento.dart';
 import 'package:housebarber/Pages/Dashboards/ListaCliente.dart';
-import 'package:housebarber/database/fake/clienteDao.dart';
 import 'package:housebarber/database/sqlite/clienteDaoSQLLite.dart';
 
 import '../../database/Models/cliente.dart';
+
 
 class Cadastro extends StatefulWidget {
   const Cadastro({super.key});
@@ -162,7 +162,8 @@ class _CadastroState extends State<Cadastro> {
         avaliacoes: [],
         imgUrl: '',
         cep: '',
-        cpfCpnj: '');
+        cpfCpnj: '',
+        servicos: []);
   }
 
   void preencherCampos(Cliente cliente) {

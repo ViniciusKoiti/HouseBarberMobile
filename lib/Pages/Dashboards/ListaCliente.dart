@@ -93,12 +93,7 @@ class _TelaListaClientesState extends State<TelaListaClientes> {
                       ],
                     ),
                     onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                const ServicosRealizadosPage()),
-                      );
+                      Navigator.pushNamed(context,Rotas.listaServico, arguments: _clientesFiltrados[index]);
                     },
                   );
                 },

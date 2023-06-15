@@ -4,9 +4,7 @@ import 'package:housebarber/database/sqlite/conectDatabase.dart';
 import 'package:sqflite/sqflite.dart';
 
 class ServicoDao implements GenericDao<Servico> {
-  final Database _db;
-
-  ServicoDao(this._db);
+  ServicoDao();
 
   @override
   Future<Servico> salvar(Servico servico) async {
@@ -46,12 +44,14 @@ class ServicoDao implements GenericDao<Servico> {
 
   @override
   Future<List<Servico>> listarTodos() async {
+    Database _db = await Conexao.criar();
     final List<Map<String, dynamic>> resultados = await _db.query('servico');
     return resultados.map((resultado) => converterServico(resultado)).toList();
   }
 
   @override
   Future<Servico> getById(int id) async {
+    Database _db = await Conexao.criar();
     final List<Map<String, dynamic>> resultados = await _db.query(
       'servico',
       where: 'id = ?',
@@ -65,6 +65,7 @@ class ServicoDao implements GenericDao<Servico> {
 
   @override
   Future<bool> excluir(int id) async {
+    Database _db = await Conexao.criar();
     final linhasAfetadas = await _db.delete(
       'servico',
       where: 'id = ?',
@@ -74,6 +75,7 @@ class ServicoDao implements GenericDao<Servico> {
   }
 
   Future<List<Servico>> listarServicosPorClienteId(int clienteId) async {
+    Database _db = await Conexao.criar();
     final List<Map<String, dynamic>> resultados = await _db.rawQuery('''
       SELECT * FROM servico WHERE cliente_id = ?
     ''', [clienteId]);

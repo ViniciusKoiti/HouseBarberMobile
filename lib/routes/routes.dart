@@ -9,4 +9,5 @@ class Rotas {
   static const notificacoes = "notificações";
   static const listaBarbeiro = "listaBarbeiro";
   static const listaCliente = "listaCliente";
+  static const listaServico = "listaServico";
 }
