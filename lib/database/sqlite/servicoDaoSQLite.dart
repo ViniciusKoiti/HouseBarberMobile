@@ -17,15 +17,14 @@ class ServicoDao implements GenericDao<Servico> {
         servico.nome,
         servico.descricao,
         servico.preco,
-        servico.cliente
-            .id, // Assuming you have a Cliente object with an id property
+        servico.cliente_id, // Assuming you have a Cliente object with an id property
       ]);
       servico = Servico(
         id: id,
         nome: servico.nome,
         descricao: servico.descricao,
         preco: servico.preco,
-        cliente: servico.cliente,
+        cliente_id: servico.cliente_id,
       );
     } else {
       sql =
@@ -34,8 +33,7 @@ class ServicoDao implements GenericDao<Servico> {
         servico.nome,
         servico.descricao,
         servico.preco,
-        servico.cliente
-            .id, // Assuming you have a Cliente object with an id property
+        servico.cliente_id, // Assuming you have a Cliente object with an id property
         servico.id,
       ]);
     }
@@ -77,19 +75,21 @@ class ServicoDao implements GenericDao<Servico> {
   Future<List<Servico>> listarServicosPorClienteId(int clienteId) async {
     Database _db = await Conexao.criar();
     final List<Map<String, dynamic>> resultados = await _db.rawQuery('''
-      SELECT * FROM servico WHERE cliente_id = ?
+      SELECT * FROM servico WHERE cliente_id = ? 
     ''', [clienteId]);
 
     return resultados.map((resultado) => converterServico(resultado)).toList();
   }
 
   Servico converterServico(Map<String, dynamic> resultado) {
+    print(resultado);
+    
     return Servico(
       id: resultado['id'],
       nome: resultado['nome'],
       descricao: resultado['descricao'],
       preco: resultado['preco'],
-      cliente: resultado['cliente'],
+      cliente_id: resultado['cliente_id'],
     );
   }
 }

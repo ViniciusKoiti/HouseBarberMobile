@@ -5,10 +5,8 @@ import 'package:housebarber/database/Models/cliente.dart';
 import 'package:housebarber/database/Models/servico.dart';
 
 class CadastroServicoScreen extends StatefulWidget {
-  final Cliente selectedCliente;
   const CadastroServicoScreen({
     Key? key,
-    required this.selectedCliente,
   }) : super(key: key);
 
   @override
@@ -16,14 +14,16 @@ class CadastroServicoScreen extends StatefulWidget {
 }
 
 class _CadastroServicoScreenState extends State<CadastroServicoScreen> {
+  dynamic idCliente;
+  dynamic idServico;
   final _formKey = GlobalKey<FormState>();
-
   final _nomeController = TextEditingController();
   final _descricaoController = TextEditingController();
   final _precoController = TextEditingController();
-
+  
   @override
   Widget build(BuildContext context) {
+    receberServicoParaAlteracao(context);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Cadastro de Serviço'),
@@ -80,7 +80,7 @@ class _CadastroServicoScreenState extends State<CadastroServicoScreen> {
                       nome: _nomeController.text,
                       descricao: _descricaoController.text,
                       preco: double.parse(_precoController.text),
-                      cliente: widget.selectedCliente,
+                      cliente_id: idCliente,
                     );
 
                     Navigator.pop(context);
@@ -93,5 +93,20 @@ class _CadastroServicoScreenState extends State<CadastroServicoScreen> {
         ),
       ),
     );
+  }
+
+  void receberServicoParaAlteracao(BuildContext context) {
+    var parametro = ModalRoute.of(context);
+    if (parametro != null && parametro.settings.arguments != null) {
+      Servico servico = parametro.settings.arguments as Servico;
+      idServico = servico.id;
+      preencherCampos(servico);
+    }
+  }
+
+  void preencherCampos(Servico servico){
+    _nomeController.text = servico.nome;
+    _descricaoController.text = servico.descricao;
+    _precoController.text = "${servico.preco}";
   }
 }

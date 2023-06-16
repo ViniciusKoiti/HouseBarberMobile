@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:housebarber/Components/configs.dart';
+import 'package:housebarber/Pages/Avaliacao/servicosRealizados.dart';
 import 'package:housebarber/Pages/Cadastro/Cadastro.dart';
 import 'package:housebarber/Pages/Dashboards/Agendamento.dart';
 import 'package:housebarber/Pages/Dashboards/ListaCliente.dart';
@@ -7,6 +8,7 @@ import 'package:housebarber/Pages/Login/LoginBarbeiro.dart';
 import 'package:housebarber/Pages/Perfil/HistoricoDeAvalia%C3%A7%C3%B5es.dart';
 import 'package:housebarber/Pages/Perfil/Notificacoes.dart';
 import 'package:housebarber/Pages/Perfil/PerfilBarbeiro.dart';
+import 'package:housebarber/Pages/Servicos/cadastroServicos.dart';
 import 'package:housebarber/routes/routes.dart';
 
 import 'Pages/Home/Home.dart';
@@ -27,8 +29,10 @@ class App extends StatelessWidget {
           Rotas.listaBarbeiro: (context) => const Agendamento(),
           Rotas.listaCliente: (context) => const TelaListaClientes(),
           Rotas.perfilBarbeiro: (context) => const BarberProfilePage(),
+          Rotas.listaServico: (context) => const ServicosRealizado(),
           Rotas.historicoBarbeiro: (context) => HistoricoBarbeiros(),
           Rotas.notificacoes: (context) => const Notificacoes(),
+          Rotas.cadastroServico: (context) => const CadastroServicoScreen()
         },
         home: const TelaListaClientes());
   }

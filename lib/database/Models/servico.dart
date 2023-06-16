@@ -6,7 +6,7 @@ class Servico {
   final dynamic id;
   final String nome;
   final String descricao;
-  final Cliente cliente;
+  final int cliente_id;
   final double preco;
 
   const Servico({
@@ -14,6 +14,6 @@ class Servico {
     required this.nome,
     required this.descricao,
     required this.preco,
-    required this.cliente,
+    required this.cliente_id,
   });
 }
