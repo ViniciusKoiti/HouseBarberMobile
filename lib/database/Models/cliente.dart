@@ -18,5 +18,6 @@ class Cliente {
       required this.nome,
       required this.telefone,
       required this.imgUrl,
-      required this.avaliacoes, required List servicos});
+      required this.servicos,
+      required this.avaliacoes});
 }

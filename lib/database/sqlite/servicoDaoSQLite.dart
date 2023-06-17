@@ -3,8 +3,46 @@ import 'package:housebarber/database/genericDao.dart';
 import 'package:housebarber/database/sqlite/conectDatabase.dart';
 import 'package:sqflite/sqflite.dart';
 
-class ServicoDao implements GenericDao<Servico> {
-  ServicoDao();
+class ServicoDaoSQLite implements GenericDao<Servico> {
+  @override
+  Future<bool> excluir(int id) async {
+    Database db = await Conexao.criar();
+    var sql = 'DELETE FROM servico WHERE id = ?';
+    int linhasAfetas = await db.rawDelete(sql, [id]);
+    return linhasAfetas > 0;
+  }
+
+  @override
+  Future<Servico> getById(int id) async {
+    Database db = await Conexao.criar();
+    List<Map> maps =
+        await db.query('servico', where: 'id = ?', whereArgs: [id]);
+    if (maps.isEmpty) {
+      throw Exception('Não foi encontrado registro com este id');
+    }
+    Map<dynamic, dynamic> resultado = maps.first;
+    return converterServico(resultado);
+  }
+
+  Future<List<Servico>> listarServicosCliente(int id) async {
+    Database db = await Conexao.criar();
+    List<Map> resultados = await db.rawQuery('''
+    SELECT Servicos.id, Servicos.nome, Servicos.descricao, Servicos.preco 
+    FROM Servicos
+    JOIN Clientes_Servicos ON Servicos.id = Clientes_Servicos.servico_id
+    WHERE Clientes_Servicos.cliente_id = ?;
+    ''', [id]);
+
+    return resultados.map<Servico>(converterServico).toList();
+  }
+
+  @override
+  Future<List<Servico>> listarTodos() async {
+    Database db = await Conexao.criar();
+    List<Servico> lista =
+        (await db.query('servico')).map<Servico>(converterServico).toList();
+    return lista;
+  }
 
   @override
   Future<Servico> salvar(Servico servico) async {
@@ -17,7 +55,8 @@ class ServicoDao implements GenericDao<Servico> {
         servico.nome,
         servico.descricao,
         servico.preco,
-        servico.cliente_id, // Assuming you have a Cliente object with an id property
+        servico
+            .cliente_id, // Assuming you have a Cliente object with an id property
       ]);
       servico = Servico(
         id: id,
@@ -33,43 +72,12 @@ class ServicoDao implements GenericDao<Servico> {
         servico.nome,
         servico.descricao,
         servico.preco,
-        servico.cliente_id, // Assuming you have a Cliente object with an id property
+        servico
+            .cliente_id, // Assuming you have a Cliente object with an id property
         servico.id,
       ]);
     }
     return servico;
-  }
-
-  @override
-  Future<List<Servico>> listarTodos() async {
-    Database _db = await Conexao.criar();
-    final List<Map<String, dynamic>> resultados = await _db.query('servico');
-    return resultados.map((resultado) => converterServico(resultado)).toList();
-  }
-
-  @override
-  Future<Servico> getById(int id) async {
-    Database _db = await Conexao.criar();
-    final List<Map<String, dynamic>> resultados = await _db.query(
-      'servico',
-      where: 'id = ?',
-      whereArgs: [id],
-    );
-    if (resultados.isNotEmpty) {
-      return converterServico(resultados.first);
-    }
-    throw Exception('Servico não encontrado');
-  }
-
-  @override
-  Future<bool> excluir(int id) async {
-    Database _db = await Conexao.criar();
-    final linhasAfetadas = await _db.delete(
-      'servico',
-      where: 'id = ?',
-      whereArgs: [id],
-    );
-    return linhasAfetadas > 0;
   }
 
   Future<List<Servico>> listarServicosPorClienteId(int clienteId) async {
@@ -81,9 +89,9 @@ class ServicoDao implements GenericDao<Servico> {
     return resultados.map((resultado) => converterServico(resultado)).toList();
   }
 
-  Servico converterServico(Map<String, dynamic> resultado) {
+  Servico converterServico(Map<dynamic, dynamic> resultado) {
     print(resultado);
-    
+
     return Servico(
       id: resultado['id'],
       nome: resultado['nome'],

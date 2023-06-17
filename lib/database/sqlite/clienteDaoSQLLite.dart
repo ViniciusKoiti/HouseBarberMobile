@@ -66,14 +66,15 @@ class ClienteDaoSQLite implements GenericDao<Cliente> {
 
   Cliente converterCliente(Map<dynamic, dynamic> resultado) {
     return Cliente(
-      id: resultado['id'],
-      nome: resultado['name'],
-      telefone: resultado['telefone'],
-      imgUrl: resultado['imgUrl'],
-      cpfCpnj: resultado['cpfCpnj'],
-      cep: resultado['cep'],
-      servicos: [], // Você pode adicionar a lógica para converter os servicos do cliente também
-      avaliacoes: [], // Você pode adicionar a lógica para converter as avaliacoes do cliente também
-    );
+        id: resultado['id'],
+        nome: resultado['nome'],
+        telefone: resultado['telefone'],
+        imgUrl: resultado['imgUrl'],
+        cpfCpnj: resultado['cpfCpnj'],
+        cep: resultado['cep'],
+        avaliacoes: resultado['avaliacoes'],
+        servicos: resultado[
+            'servicos'] // Provavelmente, você vai querer converter as avaliações do cliente também
+        );
   }
 }
