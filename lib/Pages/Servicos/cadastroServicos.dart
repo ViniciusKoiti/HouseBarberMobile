@@ -3,6 +3,7 @@ import 'dart:ffi';
 import 'package:flutter/material.dart';
 import 'package:housebarber/database/Models/cliente.dart';
 import 'package:housebarber/database/Models/servico.dart';
+import 'package:housebarber/database/sqlite/servicoDaoSQLite.dart';
 
 class CadastroServicoScreen extends StatefulWidget {
   const CadastroServicoScreen({
@@ -14,6 +15,7 @@ class CadastroServicoScreen extends StatefulWidget {
 }
 
 class _CadastroServicoScreenState extends State<CadastroServicoScreen> {
+  ServicoDaoSQLite servicoDaoSQLite = ServicoDaoSQLite();
   dynamic idCliente;
   dynamic idServico;
   final _formKey = GlobalKey<FormState>();
@@ -75,14 +77,8 @@ class _CadastroServicoScreenState extends State<CadastroServicoScreen> {
               ElevatedButton(
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
-                    final novoServico = Servico(
-                      id: null,
-                      nome: _nomeController.text,
-                      descricao: _descricaoController.text,
-                      preco: double.parse(_precoController.text),
-                      cliente_id: idCliente,
-                    );
-
+                    servicoDaoSQLite.salvar(criarServicoDto());
+                    
                     Navigator.pop(context);
                   }
                 },
@@ -95,18 +91,23 @@ class _CadastroServicoScreenState extends State<CadastroServicoScreen> {
     );
   }
 
-  void receberServicoParaAlteracao(BuildContext context) {
+  void receberServicoParaAlteracao(BuildContext context) async{
     var parametro = ModalRoute.of(context);
     if (parametro != null && parametro.settings.arguments != null) {
-      Servico servico = parametro.settings.arguments as Servico;
-      idServico = servico.id;
+      int? idServico = parametro.settings.arguments as int?;
+      Servico servico = await servicoDaoSQLite.getById(idServico!);
       preencherCampos(servico);
+  
     }
-  }
+  } 
 
   void preencherCampos(Servico servico){
     _nomeController.text = servico.nome;
     _descricaoController.text = servico.descricao;
     _precoController.text = "${servico.preco}";
+  }
+
+  Servico criarServicoDto(){
+    return Servico(nome: _nomeController.text, descricao: _descricaoController.text, preco: double.parse(_precoController.text), cliente_id: idCliente);
   }
 }

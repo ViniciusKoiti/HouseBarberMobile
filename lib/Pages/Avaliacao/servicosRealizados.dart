@@ -75,21 +75,17 @@ class _ServicosRealizadosPage extends State<ServicosRealizado> {
   }
 
   Widget criarItemLista(BuildContext context, Servico servico) {
-    return Card(
-      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      child: ListTile(
-        trailing: Row(children: [
-          IconButton(
+    return ListTile(
+        trailing: IconButton(
               onPressed: () {
                 Navigator.pushNamed(context, Rotas.cadastroServico,
                     arguments: idCliente);
               },
               icon: Icon(Icons.edit))
-        ]),
+        ,
         title: Text(servico.nome),
         subtitle: Text("${servico.preco}"),
-      ),
-    );
+      );
   }
 
   Future<List<Servico>> buscarServicosPorCliente() {
