@@ -8,7 +8,8 @@ final Map<TableCreate, String> tableSqlMap = {
         telefone VARCHAR(100),
         imgUrl VARCHAR(100),
         cpfCpnj VARCHAR(100),
-        cep VARCHAR(100)
+        cep VARCHAR(100),
+
       );
   """,
   TableCreate.servico: """

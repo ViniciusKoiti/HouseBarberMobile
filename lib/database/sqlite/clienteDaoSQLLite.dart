@@ -1,6 +1,7 @@
 import 'package:housebarber/database/Models/cliente.dart';
 import 'package:housebarber/database/genericDao.dart';
 import 'package:housebarber/database/sqlite/conectDatabase.dart';
+import 'package:housebarber/database/sqlite/servicoDaoSQLite.dart';
 import 'package:sqflite/sqflite.dart';
 
 class ClienteDaoSQLite implements GenericDao<Cliente> {
@@ -73,8 +74,7 @@ class ClienteDaoSQLite implements GenericDao<Cliente> {
         cpfCpnj: resultado['cpfCpnj'],
         cep: resultado['cep'],
         avaliacoes: [],
-        servicos: resultado[
-            'servicos'] // Provavelmente, você vai querer converter as avaliações do cliente também
+        servicos: [],
         );
   }
 }
