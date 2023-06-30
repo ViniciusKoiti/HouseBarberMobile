@@ -73,7 +73,7 @@ class ServicoDaoSQLite implements GenericDao<Servico> {
         servico.descricao,
         servico.preco,
         servico
-            .cliente_id, // Assuming you have a Cliente object with an id property
+            .cliente_id,
         servico.id,
       ]);
     }

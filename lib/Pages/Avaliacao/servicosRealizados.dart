@@ -12,8 +12,8 @@ class ServicosRealizado extends StatefulWidget {
 }
 
 class CreateServico {
-  final String idCliente;
-  String? idServico;
+  final int idCliente;
+  int? idServico;
 
   CreateServico(this.idCliente, this.idServico);
 }
@@ -53,8 +53,7 @@ class _ServicosRealizadosPage extends State<ServicosRealizado> {
   void listaServicosPorCliente(BuildContext context) async {
     var parametro = ModalRoute.of(context);
     if (parametro != null && parametro.settings.arguments != null) {
-      Cliente cliente = parametro.settings.arguments as Cliente;
-      idCliente = cliente.id;
+      idCliente = parametro.settings.arguments as int?;
     }
   }
 
@@ -75,11 +74,13 @@ class _ServicosRealizadosPage extends State<ServicosRealizado> {
   }
 
   Widget criarItemLista(BuildContext context, Servico servico) {
+    idServico = servico.id;
+    CreateServico createServico = CreateServico(idCliente, idServico);
     return ListTile(
         trailing: IconButton(
               onPressed: () {
                 Navigator.pushNamed(context, Rotas.cadastroServico,
-                    arguments: idCliente);
+                    arguments: createServico);
               },
               icon: Icon(Icons.edit))
         ,
@@ -91,8 +92,7 @@ class _ServicosRealizadosPage extends State<ServicosRealizado> {
   Future<List<Servico>> buscarServicosPorCliente() {
     var parametro = ModalRoute.of(context);
     if (parametro != null && parametro.settings.arguments != null) {
-      Cliente cliente = parametro.settings.arguments as Cliente;
-      idCliente = cliente.id;
+       idCliente = parametro.settings.arguments as int?;
     }
     setState(() {});
     return servicoDao.listarServicosPorClienteId(idCliente);

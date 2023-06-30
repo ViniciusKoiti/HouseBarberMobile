@@ -16,7 +16,6 @@ import 'Pages/Home/Home.dart';
 class App extends StatelessWidget {
   const App({super.key});
 
-  //App possui um método abstrato
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

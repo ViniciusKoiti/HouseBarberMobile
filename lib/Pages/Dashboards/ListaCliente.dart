@@ -32,6 +32,7 @@ class _TelaListaClientesState extends State<TelaListaClientes> {
 
   Future<void> _buscarClientes(String textoBusca) async {
     List<Cliente> clientes = await clienteDao.listarTodos();
+    print(clientes);
     setState(() {
       _clientesFiltrados = clientes
           .where((cliente) =>
@@ -93,7 +94,7 @@ class _TelaListaClientesState extends State<TelaListaClientes> {
                       ],
                     ),
                     onTap: () {
-                      Navigator.pushNamed(context,Rotas.listaServico, arguments: _clientesFiltrados[index]);
+                      Navigator.pushNamed(context,Rotas.listaServico, arguments: _clientesFiltrados[index].id);
                     },
                   );
                 },
