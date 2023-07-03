@@ -1,7 +1,7 @@
-enum TableCreate { cliente, servico, agendamento, produto, produto_servico , endereco }
+enum TableCreate { cliente, servico, agendamento, produto, endereco }
 
 final Map<TableCreate, String> tableSqlMap = {
-   TableCreate.cliente: """
+  TableCreate.cliente: """
       CREATE TABLE cliente(
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         name VARCHAR(100),
@@ -18,6 +18,8 @@ final Map<TableCreate, String> tableSqlMap = {
       descricao TEXT,
       preco REAL,
       cliente_id INTEGER,
+      produto_id INTEGER,
+      FOREIGN KEY(produto_id) REFERENCES produto(id),
       FOREIGN KEY(cliente_id) REFERENCES cliente(id)
     );
   """,
@@ -39,14 +41,6 @@ final Map<TableCreate, String> tableSqlMap = {
     preco REAL, 
   ),
 """,
-  TableCreate.produto_servico: """
-  CREATE TABLE produto_servico(
-    id_produto INTEGER, 
-    id_servico INTEGER, 
-    FOREIGN KEY(id_produto) REFERENCES cliente(id),
-    FOREIGN KEY(id_servico) REFERENCES produto(id)
-  )
-""",
   TableCreate.endereco: """
   CREATE TABLE endereco(
       id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -57,6 +51,4 @@ final Map<TableCreate, String> tableSqlMap = {
       FOREIGN KEY(cliente_id) REFERENCES cliente(id)
     );
 """
-
 };
-

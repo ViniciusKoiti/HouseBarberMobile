@@ -5,7 +5,7 @@ import 'package:housebarber/Pages/Avaliacao/servicosRealizados.dart';
 import 'package:housebarber/Pages/Perfil/PerfilBarbeiro.dart';
 import 'package:housebarber/database/Models/cliente.dart';
 import 'package:housebarber/database/Models/servico.dart';
-import 'package:housebarber/database/sqlite/servicoDaoSQLite.dart';
+import 'package:housebarber/database/sqlite/dao/servicoDaoSQLite.dart';
 
 import '../../routes/routes.dart';
 
@@ -26,7 +26,7 @@ class _CadastroServicoScreenState extends State<CadastroServicoScreen> {
   final _nomeController = TextEditingController();
   final _descricaoController = TextEditingController();
   final _precoController = TextEditingController();
-  
+
   @override
   Widget build(BuildContext context) {
     receberServicoParaAlteracao(context);
@@ -82,10 +82,9 @@ class _CadastroServicoScreenState extends State<CadastroServicoScreen> {
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
                     servicoDaoSQLite.salvar(criarServicoDto());
-                    
-                    Navigator.pushNamed(context, Rotas.listaServico,
-                    arguments: idCliente);
-                     
+
+                    Navigator.pushNamed(context, Rotas.listaProduto,
+                        arguments: idCliente);
                   }
                 },
                 child: const Text('Salvar'),
@@ -97,30 +96,34 @@ class _CadastroServicoScreenState extends State<CadastroServicoScreen> {
     );
   }
 
-  void receberServicoParaAlteracao(BuildContext context) async{
+  void receberServicoParaAlteracao(BuildContext context) async {
     var parametro = ModalRoute.of(context);
     if (parametro != null && parametro.settings.arguments != null) {
-      if(parametro.settings.arguments is CreateServico){
-        CreateServico createServico = parametro.settings.arguments as CreateServico;
-        idServico = createServico.idServico as int?;
-        idCliente = createServico.idCliente as int?;
+      if (parametro.settings.arguments is CreateServico) {
+        CreateServico createServico =
+            parametro.settings.arguments as CreateServico;
+        idServico = createServico.idServico;
+        idCliente = createServico.idCliente;
         Servico servico = await servicoDaoSQLite.getById(idServico!);
         preencherCampos(servico);
-      }
-      else{
-        idCliente =  parametro?.settings.arguments as int?;
+      } else {
+        idCliente = parametro.settings.arguments as int?;
       }
     }
-  } 
+  }
 
-  void preencherCampos(Servico servico){
+  void preencherCampos(Servico servico) {
     _nomeController.text = servico.nome;
     _descricaoController.text = servico.descricao;
     _precoController.text = "${servico.preco}";
   }
 
-  Servico criarServicoDto(){
-    
-    return Servico(id:idServico, nome : _nomeController.text, descricao: _descricaoController.text, preco: double.parse(_precoController.text), cliente_id: idCliente);
+  Servico criarServicoDto() {
+    return Servico(
+        id: idServico,
+        nome: _nomeController.text,
+        descricao: _descricaoController.text,
+        preco: double.parse(_precoController.text),
+        cliente_id: idCliente);
   }
 }

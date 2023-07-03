@@ -11,4 +11,6 @@ class Rotas {
   static const listaCliente = "listaCliente";
   static const listaServico = "listaServico";
   static const cadastroServico = "cadastroServico";
+  static const listaProduto = "listaProduto";
+  static const cadastroProduto = "cadastroProduto";
 }
