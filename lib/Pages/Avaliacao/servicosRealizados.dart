@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:housebarber/database/Models/cliente.dart';
 import 'package:housebarber/database/Models/servico.dart';
-import 'package:housebarber/database/sqlite/servicoDaoSQLite.dart';
+import 'package:housebarber/database/sqlite/dao/servicoDaoSQLite.dart';
 import 'package:housebarber/routes/routes.dart';
 
 class ServicosRealizado extends StatefulWidget {

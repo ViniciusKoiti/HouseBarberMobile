@@ -16,10 +16,10 @@ class ProdutoDaoSQLite implements GenericDao<Produto> {
     Database db = await Conexao.criar();
     List<Map> maps =
         await db.rawQuery('SELECT * FROM produto WHERE id = ?', [id]);
-    if (maps.length > 0) {
-      return converterProduto(maps.first);
+    if (!(maps.length > 0)) {
+      Exception('Não foi encontrado registro com este id');
     }
-    return null;
+    return converterProduto(maps.first);
   }
 
   @override

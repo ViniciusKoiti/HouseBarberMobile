@@ -1,7 +1,6 @@
 import 'package:housebarber/database/Models/cliente.dart';
 import 'package:housebarber/database/genericDao.dart';
 import 'package:housebarber/database/sqlite/conectDatabase.dart';
-import 'package:housebarber/database/sqlite/servicoDaoSQLite.dart';
 import 'package:sqflite/sqflite.dart';
 
 class ClienteDaoSQLite implements GenericDao<Cliente> {
@@ -67,14 +66,14 @@ class ClienteDaoSQLite implements GenericDao<Cliente> {
 
   Cliente converterCliente(Map<dynamic, dynamic> resultado) {
     return Cliente(
-        id: resultado['id'],
-        nome: resultado['name'],
-        telefone: resultado['telefone'],
-        imgUrl: resultado['imgUrl'],
-        cpfCpnj: resultado['cpfCpnj'],
-        cep: resultado['cep'],
-        avaliacoes: [],
-        servicos: [],
-        );
+      id: resultado['id'],
+      nome: resultado['name'],
+      telefone: resultado['telefone'],
+      imgUrl: resultado['imgUrl'],
+      cpfCpnj: resultado['cpfCpnj'],
+      cep: resultado['cep'],
+      avaliacoes: [],
+      servicos: [],
+    );
   }
 }

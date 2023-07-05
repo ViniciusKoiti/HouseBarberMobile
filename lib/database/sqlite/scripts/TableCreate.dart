@@ -38,7 +38,7 @@ final Map<TableCreate, String> tableSqlMap = {
   CREATE TABLE produto(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     nome VARCHAR(100),
-    preco REAL, 
+    preco REAL 
   ),
 """,
   TableCreate.endereco: """
