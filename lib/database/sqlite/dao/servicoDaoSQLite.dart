@@ -44,14 +44,13 @@ class ServicoDaoSQLite implements GenericDao<Servico> {
         (await db.query('servico')).map<Servico>(converterServico).toList();
     return lista;
   }
-
   Future<Servico> salvar(Servico servico) async {
     Database db = await Conexao.criar();
     String sql;
 
     if (servico.id == null) {
       sql =
-          'INSERT INTO produto(descricao, marca, preco, quantidade, nome, servico_id) VALUES(?, ?, ?, ?, ?, ?)';
+          'INSERT INTO servico(nome, descricao, preco, cliente_id) VALUES (?,?,?,?)';
       int id = await db.rawInsert(sql,
           [servico.nome, servico.descricao, servico.preco, servico.cliente_id]);
       servico = Servico(
@@ -60,6 +59,7 @@ class ServicoDaoSQLite implements GenericDao<Servico> {
         descricao: servico.descricao,
         preco: servico.preco,
         cliente_id: servico.cliente_id,
+        produto_id: servico.produto_id,
       );
     } else {
       sql =
@@ -85,14 +85,13 @@ class ServicoDaoSQLite implements GenericDao<Servico> {
   }
 
   Servico converterServico(Map<dynamic, dynamic> resultado) {
-    print(resultado);
-
     return Servico(
       id: resultado['id'],
       nome: resultado['nome'],
       descricao: resultado['descricao'],
       preco: resultado['preco'],
       cliente_id: resultado['cliente_id'],
+      produto_id: resultado['produto_id']
     );
   }
 }

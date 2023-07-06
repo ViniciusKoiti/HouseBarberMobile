@@ -32,14 +32,14 @@ final Map<TableCreate, String> tableSqlMap = {
       cliente_id INTEGER,
       FOREIGN KEY(cliente_id) REFERENCES cliente(id),
       FOREIGN KEY(servico_id) REFERENCES servico(id)
-    )
+    );
 """,
   TableCreate.produto: """
   CREATE TABLE produto(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     nome VARCHAR(100),
     preco REAL 
-  ),
+  );
 """,
   TableCreate.endereco: """
   CREATE TABLE endereco(

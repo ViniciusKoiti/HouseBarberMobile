@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:housebarber/Pages/Avaliacao/servicosRealizados.dart';
 import 'package:housebarber/Pages/Perfil/PerfilBarbeiro.dart';
 import 'package:housebarber/database/Models/cliente.dart';
+import 'package:housebarber/database/Models/produto.dart';
 import 'package:housebarber/database/Models/servico.dart';
 import 'package:housebarber/database/sqlite/dao/servicoDaoSQLite.dart';
 
@@ -20,6 +21,8 @@ class CadastroServicoScreen extends StatefulWidget {
 
 class _CadastroServicoScreenState extends State<CadastroServicoScreen> {
   ServicoDaoSQLite servicoDaoSQLite = ServicoDaoSQLite();
+  List<Produto> produtos = List.empty();
+  List<String> list = <String>['One', 'Two', 'Three', 'Four'];
   dynamic idCliente;
   dynamic idServico;
   final _formKey = GlobalKey<FormState>();
@@ -65,6 +68,18 @@ class _CadastroServicoScreenState extends State<CadastroServicoScreen> {
                   return null;
                 },
               ),
+              DropdownButton<Produto>(
+                items: list
+                    .map<DropdownMenuItem<Produto>>((Produto produto) {
+                      return DropdownMenuItem<Produto>(
+                        value: produto,
+                        child: Text(produto.nome),
+                      );
+                    } as DropdownMenuItem<Produto> Function(String e))
+                    .toList(),
+                onChanged: (Produto? value) {},
+                elevation: 16,
+              ),
               TextFormField(
                 controller: _precoController,
                 decoration: const InputDecoration(
@@ -83,7 +98,7 @@ class _CadastroServicoScreenState extends State<CadastroServicoScreen> {
                   if (_formKey.currentState!.validate()) {
                     servicoDaoSQLite.salvar(criarServicoDto());
 
-                    Navigator.pushNamed(context, Rotas.listaProduto,
+                    Navigator.pushNamed(context, Rotas.listaServico,
                         arguments: idCliente);
                   }
                 },
@@ -124,6 +139,8 @@ class _CadastroServicoScreenState extends State<CadastroServicoScreen> {
         nome: _nomeController.text,
         descricao: _descricaoController.text,
         preco: double.parse(_precoController.text),
-        cliente_id: idCliente);
+        cliente_id: idCliente,
+        produto_id: 1
+        );
   }
 }

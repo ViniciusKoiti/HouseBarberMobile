@@ -32,7 +32,6 @@ class _TelaListaClientesState extends State<TelaListaClientes> {
 
   Future<void> _buscarClientes(String textoBusca) async {
     List<Cliente> clientes = await clienteDao.listarTodos();
-    print(clientes);
     setState(() {
       _clientesFiltrados = clientes
           .where((cliente) =>
