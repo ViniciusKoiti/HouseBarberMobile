@@ -6,7 +6,7 @@ import 'package:housebarber/Components/fields/TextFieldWithText.dart';
 import 'package:housebarber/Components/text/titleText.dart';
 import 'package:housebarber/Pages/Dashboards/Agendamento.dart';
 import 'package:housebarber/Pages/Dashboards/ListaCliente.dart';
-import 'package:housebarber/database/sqlite/clienteDaoSQLLite.dart';
+import 'package:housebarber/database/sqlite/dao/clienteDaoSQLLite.dart';
 
 import '../../database/Models/cliente.dart';
 

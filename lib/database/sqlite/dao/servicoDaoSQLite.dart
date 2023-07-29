@@ -1,4 +1,3 @@
-import 'package:housebarber/database/Models/produto.dart';
 import 'package:housebarber/database/Models/servico.dart';
 import 'package:housebarber/database/genericDao.dart';
 import 'package:housebarber/database/sqlite/conectDatabase.dart';
@@ -45,43 +44,39 @@ class ServicoDaoSQLite implements GenericDao<Servico> {
     return lista;
   }
 
-  Future<Produto> salvar(Produto produto) async {
+  @override
+  Future<Servico> salvar(Servico servico) async {
     Database db = await Conexao.criar();
     String sql;
-
-    if (produto.id == null) {
+    if (servico.id == null) {
       sql =
-          'INSERT INTO produto(descricao, marca, preco, quantidade, nome, servico_id) VALUES(?, ?, ?, ?, ?, ?)';
+          'INSERT INTO servico(nome, descricao, preco, cliente_id) VALUES (?,?,?,?)';
       int id = await db.rawInsert(sql, [
-        produto.descricao,
-        produto.marca,
-        produto.preco,
-        produto.quantidade,
-        produto.nome,
-        produto.servico_id
+        servico.nome,
+        servico.descricao,
+        servico.preco,
+        servico
+            .cliente_id, // Assuming you have a Cliente object with an id property
       ]);
-      produto = Produto(
-          id: id,
-          descricao: produto.descricao,
-          marca: produto.marca,
-          preco: produto.preco,
-          quantidade: produto.quantidade,
-          nome: produto.nome,
-          servico_id: produto.servico_id);
+      servico = Servico(
+        id: id,
+        nome: servico.nome,
+        descricao: servico.descricao,
+        preco: servico.preco,
+        cliente_id: servico.cliente_id,
+      );
     } else {
       sql =
-          'UPDATE produto SET descricao = ?, marca = ?, preco = ?, quantidade = ?, nome = ?, servico_id = ? WHERE id = ?';
-      await db.rawUpdate(sql, [
-        produto.descricao,
-        produto.marca,
-        produto.preco,
-        produto.quantidade,
-        produto.nome,
-        produto.servico_id,
-        produto.id
+          'UPDATE servico SET nome = ?, descricao = ?, preco = ?, cliente_id = ? WHERE id = ?';
+      db.rawUpdate(sql, [
+        servico.nome,
+        servico.descricao,
+        servico.preco,
+        servico.cliente_id,
+        servico.id,
       ]);
     }
-    return produto;
+    return servico;
   }
 
   Future<List<Servico>> listarServicosPorClienteId(int clienteId) async {
@@ -94,8 +89,6 @@ class ServicoDaoSQLite implements GenericDao<Servico> {
   }
 
   Servico converterServico(Map<dynamic, dynamic> resultado) {
-    print(resultado);
-
     return Servico(
       id: resultado['id'],
       nome: resultado['nome'],

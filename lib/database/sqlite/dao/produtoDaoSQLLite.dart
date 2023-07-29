@@ -19,7 +19,7 @@ class ProdutoDaoSQLite implements GenericDao<Produto> {
     if (maps.length > 0) {
       return converterProduto(maps.first);
     }
-    return null;
+    return converterProduto(maps.single);
   }
 
   @override
@@ -68,6 +68,44 @@ class ProdutoDaoSQLite implements GenericDao<Produto> {
       ]);
     }
     return produto;
+  }
+
+  Future<List<Produto>> findProdutoByServico(int servicoId) async {
+    Database db = await Conexao.criar();
+    List<Map> maps = await db.rawQuery("""SELECT *
+        FROM produto
+        INNER JOIN produto_servico ON produto_servico.produto_id = produto.id
+        INNER JOIN servico ON servico.id = ?;""", [servicoId]);
+
+    List<Produto> produtos = maps.map<Produto>(converterProduto).toList();
+
+    return produtos;
+  }
+
+  Future<void> salvarServicoProduto(int servicoId, int produtoId) async {
+    try {
+      Database db = await Conexao.criar();
+      List<Map<String, dynamic>> resultado = await db.rawQuery('''
+      SELECT * FROM produto_servico
+      WHERE servico_id = ? AND produto_id = ?''');
+      print("passou");
+      if (resultado.isNotEmpty) {
+        await db.rawUpdate('''
+        UPDATE produto_servico
+        SET produto_id = ?
+        WHERE servico_id = ?
+      ''', [produtoId, servicoId]);
+        print("atualizado");
+      } else {
+        await db.rawInsert('''
+        INSERT INTO produto_servico (servico_id, produto_id)
+        VALUES (?, ?)
+      ''', [servicoId, produtoId]);
+        print("inserido");
+      }
+    } catch (e) {
+      print(e);
+    }
   }
 
   Produto converterProduto(Map<dynamic, dynamic> produto) {

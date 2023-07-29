@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:housebarber/Components/appBar/bottomNavBar.dart';
-import 'package:housebarber/Pages/Avaliacao/servicosRealizados.dart';
 import 'package:housebarber/database/Models/cliente.dart';
-import 'package:housebarber/database/sqlite/clienteDaoSQLLite.dart';
+import 'package:housebarber/database/sqlite/dao/clienteDaoSQLLite.dart';
 import 'package:housebarber/routes/routes.dart';
 
 class TelaListaClientes extends StatefulWidget {
@@ -32,7 +31,6 @@ class _TelaListaClientesState extends State<TelaListaClientes> {
 
   Future<void> _buscarClientes(String textoBusca) async {
     List<Cliente> clientes = await clienteDao.listarTodos();
-    print(clientes);
     setState(() {
       _clientesFiltrados = clientes
           .where((cliente) =>
@@ -94,7 +92,8 @@ class _TelaListaClientesState extends State<TelaListaClientes> {
                       ],
                     ),
                     onTap: () {
-                      Navigator.pushNamed(context,Rotas.listaServico, arguments: _clientesFiltrados[index].id);
+                      Navigator.pushNamed(context, Rotas.listaServico,
+                          arguments: _clientesFiltrados[index].id);
                     },
                   );
                 },

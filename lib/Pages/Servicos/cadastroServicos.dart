@@ -1,12 +1,10 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:housebarber/Pages/Avaliacao/servicosRealizados.dart';
-import 'package:housebarber/Pages/Perfil/PerfilBarbeiro.dart';
-import 'package:housebarber/database/Models/cliente.dart';
 import 'package:housebarber/database/Models/servico.dart';
+import 'package:housebarber/database/sqlite/dao/produtoDaoSQLLite.dart';
 import 'package:housebarber/database/sqlite/dao/servicoDaoSQLite.dart';
-
+import 'package:multi_select_flutter/multi_select_flutter.dart';
+import '../../database/Models/produto.dart';
 import '../../routes/routes.dart';
 
 class CadastroServicoScreen extends StatefulWidget {
@@ -20,8 +18,11 @@ class CadastroServicoScreen extends StatefulWidget {
 
 class _CadastroServicoScreenState extends State<CadastroServicoScreen> {
   ServicoDaoSQLite servicoDaoSQLite = ServicoDaoSQLite();
+  ProdutoDaoSQLite produtoDaoSQLite = ProdutoDaoSQLite();
   dynamic idCliente;
   dynamic idServico;
+  List<Produto> _produtos = [];
+  List<Produto> _selectedProdutos = [];
   final _formKey = GlobalKey<FormState>();
   final _nomeController = TextEditingController();
   final _descricaoController = TextEditingController();
@@ -41,6 +42,21 @@ class _CadastroServicoScreenState extends State<CadastroServicoScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
+              MultiSelectDialogField<Produto>(
+                items: _produtos.map((produto) {
+                  return MultiSelectItem<Produto>(
+                    produto,
+                    produto.nome,
+                  );
+                }).toList(),
+                title: Text('Selecione os produtos para o serviço'),
+                initialValue: _selectedProdutos,
+                onConfirm: (List<Produto> selected) {
+                  setState(() {
+                    _selectedProdutos = selected;
+                  });
+                },
+              ),
               TextFormField(
                 controller: _nomeController,
                 decoration: const InputDecoration(
@@ -79,11 +95,17 @@ class _CadastroServicoScreenState extends State<CadastroServicoScreen> {
                 },
               ),
               ElevatedButton(
-                onPressed: () {
+                onPressed: () async {
                   if (_formKey.currentState!.validate()) {
-                    servicoDaoSQLite.salvar(criarServicoDto());
-
-                    Navigator.pushNamed(context, Rotas.listaProduto,
+                    Servico servico =
+                        await servicoDaoSQLite.salvar(criarServicoDto());
+                    if (!_produtos.isEmpty) {
+                      for (Produto produto in _produtos) {
+                        produtoDaoSQLite.salvarServicoProduto(
+                            servico.id, produto.id);
+                      }
+                    }
+                    Navigator.pushNamed(context, Rotas.listaServico,
                         arguments: idCliente);
                   }
                 },
@@ -100,22 +122,29 @@ class _CadastroServicoScreenState extends State<CadastroServicoScreen> {
     var parametro = ModalRoute.of(context);
     if (parametro != null && parametro.settings.arguments != null) {
       if (parametro.settings.arguments is CreateServico) {
+        ProdutoDaoSQLite produtoDaoSQLite = ProdutoDaoSQLite();
         CreateServico createServico =
             parametro.settings.arguments as CreateServico;
         idServico = createServico.idServico;
         idCliente = createServico.idCliente;
+
+        List<Produto> produtos =
+            await produtoDaoSQLite.findProdutoByServico(idServico);
         Servico servico = await servicoDaoSQLite.getById(idServico!);
-        preencherCampos(servico);
+        print(produtos);
+        preencherCampos(servico, produtos: produtos);
       } else {
         idCliente = parametro.settings.arguments as int?;
       }
     }
   }
 
-  void preencherCampos(Servico servico) {
+  void preencherCampos(Servico servico, {List<Produto> produtos = const []}) {
     _nomeController.text = servico.nome;
     _descricaoController.text = servico.descricao;
     _precoController.text = "${servico.preco}";
+
+    _selectedProdutos = produtos;
   }
 
   Servico criarServicoDto() {
@@ -125,5 +154,20 @@ class _CadastroServicoScreenState extends State<CadastroServicoScreen> {
         descricao: _descricaoController.text,
         preco: double.parse(_precoController.text),
         cliente_id: idCliente);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _loadProdutosFromDatabase();
+  }
+
+  Future<void> _loadProdutosFromDatabase() async {
+    ProdutoDaoSQLite produtoDaoSQLite = ProdutoDaoSQLite();
+    List<Produto> produtos = await produtoDaoSQLite.listarTodos();
+
+    setState(() {
+      _produtos = produtos;
+    });
   }
 }

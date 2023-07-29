@@ -1,7 +1,7 @@
 import 'package:housebarber/database/Models/cliente.dart';
 import 'package:housebarber/database/genericDao.dart';
 import 'package:housebarber/database/sqlite/conectDatabase.dart';
-import 'package:housebarber/database/sqlite/servicoDaoSQLite.dart';
+import 'package:housebarber/database/sqlite/dao/servicoDaoSQLite.dart';
 import 'package:sqflite/sqflite.dart';
 
 class ClienteDaoSQLite implements GenericDao<Cliente> {

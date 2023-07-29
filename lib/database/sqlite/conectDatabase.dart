@@ -10,6 +10,7 @@ class Conexao {
   static Future<Database> criar() async {
     if (_fechado) {
       String path = join(await getDatabasesPath(), 'banco.db');
+      deleteDatabase(path);
       _database = await openDatabase(
         path, // informando o caminho
         version: 1, // versão
@@ -35,6 +36,9 @@ class Conexao {
     }
     for (String cliente in clienteInserts) {
       await db.execute(cliente);
+    }
+    for (String produto in produtoInserts) {
+      await db.execute(produto);
     }
   }
 }
