@@ -95,6 +95,7 @@ class ServicoDaoSQLite implements GenericDao<Servico> {
       descricao: resultado['descricao'],
       preco: resultado['preco'],
       cliente_id: resultado['cliente_id'],
+      produto_id: resultado['produto_id']
     );
   }
 }

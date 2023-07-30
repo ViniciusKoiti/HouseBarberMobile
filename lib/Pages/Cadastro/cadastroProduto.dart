@@ -122,8 +122,7 @@ class _CadastroProdutoScreenState extends State<CadastroProdutoScreen> {
     var parametro = ModalRoute.of(context);
     if (parametro != null && parametro.settings.arguments != null) {
       if (parametro.settings.arguments is Produto) {
-        Produto produto = parametro.settings.arguments as Produto;
-        idProduto = produto.id;
+        Produto? produto = await produtoDaoSQLite.getById(idProduto!);
         preencherCampos(produto);
       } else {
         idCliente = parametro.settings.arguments as int?;

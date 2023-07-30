@@ -4,6 +4,7 @@ class Servico {
   final String descricao;
   final int cliente_id;
   final double preco;
+  final int produto_id;
 
   const Servico({
     required this.id,

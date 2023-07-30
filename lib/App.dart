@@ -31,6 +31,7 @@ class App extends StatelessWidget {
           Rotas.listaCliente: (context) => const TelaListaClientes(),
           Rotas.perfilBarbeiro: (context) => const BarberProfilePage(),
           Rotas.listaServico: (context) => const ServicosRealizado(),
+          Rotas.listaProduto: (context) => const CadastroProdutoScreen(),
           Rotas.historicoBarbeiro: (context) => HistoricoBarbeiros(),
           Rotas.notificacoes: (context) => const Notificacoes(),
           Rotas.cadastroServico: (context) => const CadastroServicoScreen(),
