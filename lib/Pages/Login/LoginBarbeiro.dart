@@ -40,7 +40,7 @@ class LoginBarbeiro extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const Agendamento()),
+                        builder: (context) => const AgendamentoScreen()),
                   );
                 },
                 color: Colors.black,
@@ -49,13 +49,14 @@ class LoginBarbeiro extends StatelessWidget {
                 height: 10,
               ),
               ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const Cadastro()),
-                    );
-                  },
-                  child: null,),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const Cadastro()),
+                  );
+                },
+                child: null,
+              ),
               const SizedBox(
                 height: 10,
               ),

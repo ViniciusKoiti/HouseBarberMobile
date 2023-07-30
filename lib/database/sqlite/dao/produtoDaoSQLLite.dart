@@ -37,33 +37,31 @@ class ProdutoDaoSQLite implements GenericDao<Produto> {
 
     if (produto.id == null) {
       sql =
-          'INSERT INTO produto(descricao, marca, preco, quantidade, nome, servico_id) VALUES(?, ?, ?, ?, ?, ?)';
+          'INSERT INTO produto(descricao, marca, preco, quantidade, nome) VALUES(?, ?, ?, ?, ?)';
       int id = await db.rawInsert(sql, [
         produto.descricao,
         produto.marca,
         produto.preco,
         produto.quantidade,
         produto.nome,
-        produto.servico_id
       ]);
       produto = Produto(
-          id: id,
-          descricao: produto.descricao,
-          marca: produto.marca,
-          preco: produto.preco,
-          quantidade: produto.quantidade,
-          nome: produto.nome,
-          servico_id: produto.servico_id);
+        id: id,
+        descricao: produto.descricao,
+        marca: produto.marca,
+        preco: produto.preco,
+        quantidade: produto.quantidade,
+        nome: produto.nome,
+      );
     } else {
       sql =
-          'UPDATE produto SET descricao = ?, marca = ?, preco = ?, quantidade = ?, nome = ?, servico_id = ? WHERE id = ?';
+          'UPDATE produto SET descricao = ?, marca = ?, preco = ?, quantidade = ?, nome = ? WHERE id = ?';
       await db.rawUpdate(sql, [
         produto.descricao,
         produto.marca,
         produto.preco,
         produto.quantidade,
         produto.nome,
-        produto.servico_id,
         produto.id
       ]);
     }
@@ -110,12 +108,12 @@ class ProdutoDaoSQLite implements GenericDao<Produto> {
 
   Produto converterProduto(Map<dynamic, dynamic> produto) {
     return Produto(
-        id: produto['id'],
-        descricao: produto['descricao'],
-        marca: produto['marca'],
-        preco: produto['preco'],
-        quantidade: produto['quantidade'],
-        nome: produto['nome'],
-        servico_id: produto['servico_id']);
+      id: produto['id'],
+      descricao: produto['descricao'],
+      marca: produto['marca'],
+      preco: produto['preco'],
+      quantidade: produto['quantidade'],
+      nome: produto['nome'],
+    );
   }
 }

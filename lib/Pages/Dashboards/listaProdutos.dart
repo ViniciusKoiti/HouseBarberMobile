@@ -59,25 +59,24 @@ class _ListaProdutosState extends State<ListaProdutos> {
                 itemCount: _produtoFiltrados.length,
                 itemBuilder: (BuildContext context, int index) {
                   return ListTile(
-                    leading: IconButton(
-                        onPressed: () {
-                          Navigator.pushNamed(context, Rotas.perfilBarbeiro);
-                        },
-                        icon: const CircleAvatar(child: Icon(Icons.person_2))),
                     title: Text(_produtoFiltrados[index].nome),
                     trailing: SizedBox(
                       width: 100,
                       child: Row(
                         children: [
                           IconButton(
-                            onPressed: () {},
+                            onPressed: () async {
+                              await produtoDao
+                                  .excluir(_produtoFiltrados[index].id);
+                              _atualizarBusca();
+                            },
                             icon: const Icon(Icons.delete),
                             color: Colors.red,
                           ),
                           IconButton(
                             onPressed: () {
                               Navigator.pushNamed(
-                                  context, Rotas.cadastroServico,
+                                  context, Rotas.cadastroProduto,
                                   arguments: _produtoFiltrados[index]);
                             },
                             icon: const Icon(Icons.edit),
@@ -93,7 +92,7 @@ class _ListaProdutosState extends State<ListaProdutos> {
                       ],
                     ),
                     onTap: () {
-                      Navigator.pushNamed(context, Rotas.listaServico,
+                      Navigator.pushNamed(context, Rotas.cadastroProduto,
                           arguments: _produtoFiltrados[index].id);
                     },
                   );

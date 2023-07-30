@@ -131,7 +131,6 @@ class _CadastroServicoScreenState extends State<CadastroServicoScreen> {
         List<Produto> produtos =
             await produtoDaoSQLite.findProdutoByServico(idServico);
         Servico servico = await servicoDaoSQLite.getById(idServico!);
-        print(produtos);
         preencherCampos(servico, produtos: produtos);
       } else {
         idCliente = parametro.settings.arguments as int?;

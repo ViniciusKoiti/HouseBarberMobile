@@ -21,6 +21,7 @@ dependencies:
   path: ^1.8.2
   url_launcher: ^6.1.11
   multi_select_flutter: ^4.0.0
+  flutter_colorpicker: ^0.6.0
 
 dev_dependencies:
   flutter_test:

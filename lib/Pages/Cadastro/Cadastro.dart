@@ -10,7 +10,6 @@ import 'package:housebarber/database/sqlite/dao/clienteDaoSQLLite.dart';
 
 import '../../database/Models/cliente.dart';
 
-
 class Cadastro extends StatefulWidget {
   const Cadastro({super.key});
 
@@ -96,7 +95,7 @@ class _CadastroState extends State<Cadastro> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const Agendamento()),
+                              builder: (context) => const AgendamentoScreen()),
                         );
                       },
                       color: Colors.blue),

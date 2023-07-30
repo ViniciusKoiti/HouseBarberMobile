@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:housebarber/Pages/Cadastro/Cadastro.dart';
 import 'package:housebarber/Pages/Dashboards/ListaCliente.dart';
+import 'package:housebarber/Pages/Dashboards/listaProdutos.dart';
 import 'package:housebarber/Pages/Perfil/HistoricoDeAvalia%C3%A7%C3%B5es.dart';
 import 'package:housebarber/Pages/Perfil/PerfilBarbeiro.dart';
 
@@ -87,6 +88,23 @@ class Configs extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => const Cadastro()),
+                );
+              },
+            ),
+          ),
+          Card(
+            elevation: 2,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10.0),
+              side: BorderSide(color: Colors.grey.shade400, width: 1),
+            ),
+            child: ListTile(
+              title: const Text('Lista de Produtos'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const ListaProdutos()),
                 );
               },
             ),
