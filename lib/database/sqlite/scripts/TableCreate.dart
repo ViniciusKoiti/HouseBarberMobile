@@ -8,7 +8,8 @@ enum TableCreate {
 }
 
 final Map<TableCreate, String> tableSqlMap = {
-  TableCreate.cliente: """
+  TableCreate.cliente:
+      """
       CREATE TABLE cliente(
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         name VARCHAR(100),
@@ -18,7 +19,8 @@ final Map<TableCreate, String> tableSqlMap = {
         cep VARCHAR(100)
       );
   """,
-  TableCreate.servico: """
+  TableCreate.servico:
+      """
     CREATE TABLE servico(
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       nome VARCHAR(100),
@@ -30,16 +32,24 @@ final Map<TableCreate, String> tableSqlMap = {
       FOREIGN KEY(cliente_id) REFERENCES cliente(id)
     );
   """,
-  TableCreate.agendamento: """
+  TableCreate.agendamento:
+      """
     CREATE TABLE agendamento(
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      dataInicial DATETIME,
-      dataFinal DATETIME,
-      cliente_id INTEGER,
-      FOREIGN KEY(cliente_id) REFERENCES cliente(id)
-    );
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    eventName TEXT,
+    fromMillis INTEGER,
+    toMillis INTEGER,
+    backgroundColor INTEGER,
+    isAllDay INTEGER,
+    servico_id INTEGER,
+    cliente_id INTEGER,
+    FOREIGN KEY(cliente_id) REFERENCES cliente(id),
+    FOREIGN KEY(servico_id) REFERENCES servico(id)
+  );
+  '''
 """,
-  TableCreate.produto: """
+  TableCreate.produto:
+      """
  CREATE TABLE produto (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   descricao TEXT,
@@ -49,7 +59,8 @@ final Map<TableCreate, String> tableSqlMap = {
   nome TEXT
 );
 """,
-  TableCreate.endereco: """
+  TableCreate.endereco:
+      """
   CREATE TABLE endereco(
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       bairro VARCHAR(100),
@@ -59,7 +70,8 @@ final Map<TableCreate, String> tableSqlMap = {
       FOREIGN KEY(cliente_id) REFERENCES cliente(id)
     );
 """,
-  TableCreate.produto_servico: """CREATE TABLE produto_servico(
+  TableCreate.produto_servico:
+      """CREATE TABLE produto_servico(
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       produto_id INTEGER,
       servico_id INTEGER,

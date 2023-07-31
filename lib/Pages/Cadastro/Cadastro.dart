@@ -33,7 +33,8 @@ class _CadastroState extends State<Cadastro> {
   Widget build(BuildContext context) {
     receberClienteParaAlteracao(context);
     return Scaffold(
-      body: Padding(
+        body: SingleChildScrollView(
+      child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
@@ -141,7 +142,7 @@ class _CadastroState extends State<Cadastro> {
           ],
         ),
       ),
-    );
+    ));
   }
 
   void receberClienteParaAlteracao(BuildContext context) {

@@ -26,12 +26,14 @@ class ServicoDaoSQLite implements GenericDao<Servico> {
 
   Future<List<Servico>> listarServicosCliente(int id) async {
     Database db = await Conexao.criar();
-    List<Map> resultados = await db.rawQuery('''
+    List<Map> resultados = await db.rawQuery(
+        '''
     SELECT Servicos.id, Servicos.nome, Servicos.descricao, Servicos.preco 
     FROM Servicos
     JOIN Clientes_Servicos ON Servicos.id = Clientes_Servicos.servico_id
     WHERE Clientes_Servicos.cliente_id = ?;
-    ''', [id]);
+    ''',
+        [id]);
 
     return resultados.map<Servico>(converterServico).toList();
   }
@@ -81,9 +83,11 @@ class ServicoDaoSQLite implements GenericDao<Servico> {
 
   Future<List<Servico>> listarServicosPorClienteId(int clienteId) async {
     Database _db = await Conexao.criar();
-    final List<Map<String, dynamic>> resultados = await _db.rawQuery('''
+    final List<Map<String, dynamic>> resultados = await _db.rawQuery(
+        '''
       SELECT * FROM servico WHERE cliente_id = ? 
-    ''', [clienteId]);
+    ''',
+        [clienteId]);
 
     return resultados.map((resultado) => converterServico(resultado)).toList();
   }
@@ -95,7 +99,6 @@ class ServicoDaoSQLite implements GenericDao<Servico> {
       descricao: resultado['descricao'],
       preco: resultado['preco'],
       cliente_id: resultado['cliente_id'],
-      produto_id: resultado['produto_id']
     );
   }
 }

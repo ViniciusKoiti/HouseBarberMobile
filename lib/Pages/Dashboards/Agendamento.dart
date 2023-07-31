@@ -50,23 +50,22 @@ class _AgendamentoScreenState extends State<AgendamentoScreen> {
     if (selectedMeeting == null) {
       _controller.displayDate = DateTime.now();
       _showAddMeetingDialog(selectedDateTime);
-    } else {}
+    } else {
+      _showUpdateMeetingDialog(selectedMeeting);
+    }
   }
 
-  Future<void> _showAddMeetingDialog(DateTime selectedDateTime) async {
+  Future<void> _showUpdateMeetingDialog(Agendamento agendamento) async {
     final TextEditingController _eventController = TextEditingController();
-    DateTime from = selectedDateTime;
-    DateTime to = selectedDateTime.add(const Duration(hours: 1));
+    _eventController.text = agendamento.eventName;
+    DateTime from = agendamento.from;
+    DateTime to = agendamento.to;
+    dropdownValueServico =
+        await servicoDaoSQLite.getById(agendamento.servico_id);
+    dropdownValueCliente =
+        await clienteDaoSQLite.getById(agendamento.cliente_id);
     List<Cliente> clientes = await clienteDaoSQLite.listarTodos();
     List<Servico> servicos = await servicoDaoSQLite.listarTodos();
-
-    if (clientes.isNotEmpty) {
-      dropdownValueCliente = dropdownValueCliente ?? clientes.first;
-    }
-
-    if (servicos.isNotEmpty) {
-      dropdownValueServico = dropdownValueServico ?? servicos.first;
-    }
 
     return showDialog(
       context: context,
@@ -88,25 +87,27 @@ class _AgendamentoScreenState extends State<AgendamentoScreen> {
                     builder: (BuildContext context,
                         AsyncSnapshot<List<Servico>> snapshot) {
                       if (snapshot.hasData) {
-                        return DropdownButton<Servico>(
-                          isExpanded: true,
-                          value: dropdownValueServico,
-                          onChanged: (Servico? newValue) {
-                            setState(() {
-                              dropdownValueServico = newValue;
-                            });
-                          },
-                          items: snapshot.data!
-                              .map<DropdownMenuItem<Servico>>((Servico value) {
-                            return DropdownMenuItem<Servico>(
-                              value: value,
-                              child: DropdownMenuItem<Servico>(
-                                value: value,
-                                child: Text(value.nome),
-                              ),
-                            );
-                          }).toList(),
-                        );
+                        return Container(
+                            transformAlignment:
+                                AlignmentDirectional.centerStart,
+                            child: DropdownButton<Servico>(
+                              value: dropdownValueServico,
+                              isExpanded: true,
+                              onChanged: (Servico? newValue) {
+                                setState(() {
+                                  dropdownValueServico = newValue;
+                                  print(dropdownValueServico?.nome);
+                                });
+                              },
+                              items: snapshot.data!
+                                  .map<DropdownMenuItem<Servico>>(
+                                      (Servico value) {
+                                return DropdownMenuItem<Servico>(
+                                  value: value,
+                                  child: Text(value.nome),
+                                );
+                              }).toList(),
+                            ));
                       } else if (snapshot.hasError) {
                         return Text("Erro: ${snapshot.error}");
                       }
@@ -116,6 +117,7 @@ class _AgendamentoScreenState extends State<AgendamentoScreen> {
                   )),
               Container(
                   width: double.infinity,
+                  transformAlignment: AlignmentDirectional.centerEnd,
                   child: FutureBuilder<List<Cliente>>(
                     future: clienteDaoSQLite.listarTodos(),
                     builder: (BuildContext context,
@@ -124,9 +126,7 @@ class _AgendamentoScreenState extends State<AgendamentoScreen> {
                         return DropdownButton<Cliente>(
                           value: dropdownValueCliente,
                           onChanged: (Cliente? newValue) {
-                            setState(() {
-                              dropdownValueCliente = newValue;
-                            });
+                            dropdownValueCliente = newValue;
                           },
                           items: snapshot.data!
                               .map<DropdownMenuItem<Cliente>>((Cliente value) {
@@ -202,12 +202,184 @@ class _AgendamentoScreenState extends State<AgendamentoScreen> {
                   setState(() {
                     meetings.add(
                       Agendamento(
-                        _eventController.text,
-                        from,
-                        to,
-                        Color.fromARGB(255, 147, 141, 179),
-                        false,
-                      ),
+                          null,
+                          _eventController.text,
+                          from,
+                          to,
+                          Color.fromARGB(255, 147, 141, 179),
+                          false,
+                          dropdownValueServico!.id,
+                          dropdownValueCliente!.id),
+                    );
+                  });
+                  Navigator.of(context).pop();
+                }
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Future<void> _showAddMeetingDialog(DateTime selectedDateTime) async {
+    final TextEditingController _eventController = TextEditingController();
+    DateTime from = selectedDateTime;
+    DateTime to = selectedDateTime.add(const Duration(hours: 1));
+    List<Cliente> clientes = await clienteDaoSQLite.listarTodos();
+    List<Servico> servicos = await servicoDaoSQLite.listarTodos();
+
+    if (clientes.isNotEmpty) {
+      dropdownValueCliente = dropdownValueCliente ?? clientes.first;
+    }
+
+    if (servicos.isNotEmpty) {
+      dropdownValueServico = dropdownValueServico ?? servicos.first;
+    }
+
+    return showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text('Adicione um agenda'),
+          content: SingleChildScrollView(
+              child: Column(
+            children: [
+              TextField(
+                controller: _eventController,
+                decoration:
+                    InputDecoration(hintText: 'Digite o nome do agendamento'),
+              ),
+              Container(
+                  width: double.infinity,
+                  child: FutureBuilder<List<Servico>>(
+                    future: servicoDaoSQLite.listarTodos(),
+                    builder: (BuildContext context,
+                        AsyncSnapshot<List<Servico>> snapshot) {
+                      if (snapshot.hasData) {
+                        return Container(
+                            transformAlignment:
+                                AlignmentDirectional.centerStart,
+                            child: DropdownButton<Servico>(
+                              value: dropdownValueServico,
+                              isExpanded: true,
+                              onChanged: (Servico? newValue) {
+                                setState(() {
+                                  dropdownValueServico = newValue;
+                                  print(dropdownValueServico?.nome);
+                                });
+                              },
+                              items: snapshot.data!
+                                  .map<DropdownMenuItem<Servico>>(
+                                      (Servico value) {
+                                return DropdownMenuItem<Servico>(
+                                  value: value,
+                                  child: Text(value.nome),
+                                );
+                              }).toList(),
+                            ));
+                      } else if (snapshot.hasError) {
+                        return Text("Erro: ${snapshot.error}");
+                      }
+                      // Enquanto a lista de clientes não está carregada, exiba um indicador de progresso
+                      return CircularProgressIndicator();
+                    },
+                  )),
+              Container(
+                  width: double.infinity,
+                  transformAlignment: AlignmentDirectional.centerEnd,
+                  child: FutureBuilder<List<Cliente>>(
+                    future: clienteDaoSQLite.listarTodos(),
+                    builder: (BuildContext context,
+                        AsyncSnapshot<List<Cliente>> snapshot) {
+                      if (snapshot.hasData) {
+                        return DropdownButton<Cliente>(
+                          value: dropdownValueCliente,
+                          onChanged: (Cliente? newValue) {
+                            dropdownValueCliente = newValue;
+                          },
+                          items: snapshot.data!
+                              .map<DropdownMenuItem<Cliente>>((Cliente value) {
+                            return DropdownMenuItem<Cliente>(
+                              value: value,
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: <Widget>[
+                                  Text(value.nome),
+                                  // This is your icon.
+                                ],
+                              ),
+                            );
+                          }).toList(),
+                        );
+                      } else if (snapshot.hasError) {
+                        return Text("Erro: ${snapshot.error}");
+                      }
+                      // Enquanto a lista de clientes não está carregada, exiba um indicador de progresso
+                      return CircularProgressIndicator();
+                    },
+                  )),
+              ElevatedButton(
+                child: Text('Escolha o inicio do agendamento'),
+                onPressed: () async {
+                  final TimeOfDay? pickedTime = await showTimePicker(
+                    context: context,
+                    initialTime: TimeOfDay.fromDateTime(from),
+                  );
+                  if (pickedTime != null) {
+                    from = DateTime(
+                      from.year,
+                      from.month,
+                      from.day,
+                      pickedTime.hour,
+                      pickedTime.minute,
+                    );
+                  }
+                },
+              ),
+              ElevatedButton(
+                child: Text('Escolha o inicio do agendamento'),
+                onPressed: () async {
+                  final TimeOfDay? pickedTime = await showTimePicker(
+                    context: context,
+                    initialTime: TimeOfDay.fromDateTime(to),
+                  );
+                  if (pickedTime != null) {
+                    to = DateTime(
+                      to.year,
+                      to.month,
+                      to.day,
+                      pickedTime.hour,
+                      pickedTime.minute,
+                    );
+                  }
+                },
+              ),
+            ],
+          )),
+          actions: [
+            TextButton(
+              child: Text('Cancelar'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: Text('Salvar'),
+              onPressed: () {
+                if (_eventController.text.isNotEmpty) {
+                  setState(() {
+                    meetings.add(
+                      Agendamento(
+                          null,
+                          _eventController.text,
+                          from,
+                          to,
+                          Color.fromARGB(255, 147, 141, 179),
+                          false,
+                          dropdownValueServico!.id,
+                          dropdownValueCliente!.id),
                     );
                   });
                   Navigator.of(context).pop();

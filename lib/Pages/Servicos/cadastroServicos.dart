@@ -81,18 +81,6 @@ class _CadastroServicoScreenState extends State<CadastroServicoScreen> {
                   return null;
                 },
               ),
-              DropdownButton<Produto>(
-                items: list
-                    .map<DropdownMenuItem<Produto>>((Produto produto) {
-                      return DropdownMenuItem<Produto>(
-                        value: produto,
-                        child: Text(produto.nome),
-                      );
-                    } as DropdownMenuItem<Produto> Function(String e))
-                    .toList(),
-                onChanged: (Produto? value) {},
-                elevation: 16,
-              ),
               TextFormField(
                 controller: _precoController,
                 decoration: const InputDecoration(
@@ -164,9 +152,7 @@ class _CadastroServicoScreenState extends State<CadastroServicoScreen> {
         nome: _nomeController.text,
         descricao: _descricaoController.text,
         preco: double.parse(_precoController.text),
-        cliente_id: idCliente,
-        produto_id: 1
-        );
+        cliente_id: idCliente);
   }
 
   @override
